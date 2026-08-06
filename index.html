@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard SAEB 2025 - Unidade Regional de Ensino de Mogi das Cruzes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+                <div class="bg-indigo-700 p-2.5 rounded-xl shadow-inner">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-amber-400"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">SAEB 2025 - Unidade Regional de Ensino de Mogi das Cruzes</h1>
+                    <p class="text-xs text-indigo-200">Boletins Oficiais do MEC • 63 Escolas Consolidadas</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+
+        <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1.5">Etapa de Ensino</label>
+                <select id="filter-etapa" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="todos">Todas as Etapas</option>
+                    <option value="9_ano">9º Ano EF</option>
+                    <option value="3_em">3º Ano EM</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1.5">Buscar Escola</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-search"></i>
+                    </span>
+                    <input type="text" id="search-school" oninput="filterData()" placeholder="Nome da escola..." class="w-full pl-9 pr-3 bg-slate-50 border border-slate-300 rounded-xl py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1.5">Ordenar Por</label>
+                <select id="filter-sort" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="nome">Nome da Escola (A-Z)</option>
+                    <option value="lp_desc">Maior Média Português</option>
+                    <option value="mat_desc">Maior Média Matemática</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-2xl text-xl">
+                    <i class="fa-solid fa-school"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase">Registros Analisados</p>
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-total-escolas">63</h3>
+                    <p class="text-xs text-indigo-600 font-medium mt-0.5">Boletins MEC consolidados</p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl text-xl">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase">Média L. Portuguesa</p>
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-media-lp">261.2</h3>
+                    <p class="text-xs text-blue-600 font-medium mt-0.5">Base Boletins Oficiais</p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-2xl text-xl">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase">Média Matemática</p>
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-media-mat">261.8</h3>
+                    <p class="text-xs text-amber-600 font-medium mt-0.5">Base Boletins Oficiais</p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-2xl text-xl">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase">Taxa Média Participação</p>
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-media-part">91.5%</h3>
+                    <p class="text-xs text-emerald-600 font-medium mt-0.5">Presença regular</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-bold text-slate-800">Desempenho Comparativo por Escola</h2>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">SAEB 2025</span>
+                </div>
+                <div class="relative flex-grow h-72">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-bold text-slate-800">Indicador Socioeconômico (INSE)</h2>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">Indicador MEC</span>
+                </div>
+                <div class="relative flex-grow h-72 flex items-center justify-center">
+                    <canvas id="inseChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div>
+                    <h2 class="text-base font-bold text-slate-800">Boletins Oficiais Analisados (63 Escolas Consolidadas)</h2>
+                    <p class="text-xs text-slate-500">Dados extraídos diretamente dos PDFs do MEC</p>
+                </div>
+                <span id="counter-escolas" class="text-xs bg-indigo-50 text-indigo-700 font-semibold px-3 py-1 rounded-full">Exibindo 63 escolas</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 uppercase text-xs font-semibold tracking-wider border-b border-slate-200">
+                            <th class="py-3 px-4">Escola / Unidade</th>
+                            <th class="py-3 px-4">Município / Rede</th>
+                            <th class="py-3 px-4">Etapa</th>
+                            <th class="py-3 px-4 text-center">Língua Portuguesa</th>
+                            <th class="py-3 px-4 text-center">Matemática</th>
+                            <th class="py-3 px-4 text-center">INSE</th>
+                            <th class="py-3 px-4 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schools-table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Populated dynamically via script -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 id="modal-school-name" class="text-lg font-bold text-slate-900">Detalhes da Escola</h3>
+                <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600 text-lg p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modal-school-content" class="space-y-3 text-sm text-slate-600">
+                <!-- Dynamic Content -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeDetailModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-medium transition">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const escolasData = [
+            {
+                id: 1,
+                nome: "EE Adelaide Maria de Barros Professora",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 270.84,
+                media_mat: 276.22,
+                inse: "Nível IV",
+                formacao_docente: "71.40%",
+                taxa_participacao: "107.69%"
+            },
+            {
+                id: 2,
+                nome: "EE Adhemar Bolina Professor",
+                municipio: "Biritiba Mirim - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 241.52,
+                media_mat: 245.75,
+                inse: "Nível V",
+                formacao_docente: "68.90%",
+                taxa_participacao: "83.23%"
+            },
+            {
+                id: 3,
+                nome: "EE Alcides Celestino Filho Vereador",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 268.62,
+                media_mat: 269.59,
+                inse: "Nível V",
+                formacao_docente: "81.30%",
+                taxa_participacao: "102.33%"
+            },
+            {
+                id: 4,
+                nome: "EE Alzira Fernandes Scungisqui",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 242.71,
+                media_mat: 244.87,
+                inse: "Nível V",
+                formacao_docente: "62.10%",
+                taxa_participacao: "84.00%"
+            },
+            {
+                id: 5,
+                nome: "EE Americo Sugai",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 265.43,
+                media_mat: 270.39,
+                inse: "Nível V",
+                formacao_docente: "64.00%",
+                taxa_participacao: "97.37%"
+            },
+            {
+                id: 6,
+                nome: "EE Angelica de Jesus Ferreira",
+                municipio: "Biritiba Mirim - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 258.32,
+                media_mat: 258.30,
+                inse: "Nível V",
+                formacao_docente: "75.40%",
+                taxa_participacao: "97.74%"
+            },
+            {
+                id: 7,
+                nome: "EE Antonio Marmora Filho Maestro",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 276.71,
+                media_mat: 274.40,
+                inse: "Nível VI",
+                formacao_docente: "75.80%",
+                taxa_participacao: "92.66%"
+            },
+            {
+                id: 8,
+                nome: "EE Aprigio de Oliveira",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 273.80,
+                media_mat: 268.95,
+                inse: "Nível VI",
+                formacao_docente: "57.10%",
+                taxa_participacao: "95.00%"
+            },
+            {
+                id: 9,
+                nome: "EE Aristoteles de Andrade Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 279.38,
+                media_mat: 298.60,
+                inse: "Nível V",
+                formacao_docente: "85.70%",
+                taxa_participacao: "105.26%"
+            },
+            {
+                id: 10,
+                nome: "EE Aristoteles de Andrade Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 279.32,
+                media_mat: 284.24,
+                inse: "Nível V",
+                formacao_docente: "52.20%",
+                taxa_participacao: "100.00%"
+            },
+            {
+                id: 11,
+                nome: "EE Arlindo Aquino de Oliveira Doutor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 274.40,
+                media_mat: 265.88,
+                inse: "Nível V",
+                formacao_docente: "71.40%",
+                taxa_participacao: "89.66%"
+            },
+            {
+                id: 12,
+                nome: "EE Arlindo Aquino de Oliveira Doutor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 272.30,
+                media_mat: 284.24,
+                inse: "Nível V",
+                formacao_docente: "30.40%",
+                taxa_participacao: "109.09%"
+            },
+            {
+                id: 13,
+                nome: "EE Benedito Borges Vieira Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 262.55,
+                media_mat: 269.79,
+                inse: "Nível V",
+                formacao_docente: "73.30%",
+                taxa_participacao: "90.00%"
+            },
+            {
+                id: 14,
+                nome: "EE Benedito Borges Vieira Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 268.26,
+                media_mat: 275.21,
+                inse: "Nível V",
+                formacao_docente: "52.00%",
+                taxa_participacao: "85.92%"
+            },
+            {
+                id: 15,
+                nome: "EE Benedito de Souza Lima (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 263.82,
+                media_mat: 271.41,
+                inse: "Nível V",
+                formacao_docente: "71.40%",
+                taxa_participacao: "97.73%"
+            },
+            {
+                id: 16,
+                nome: "EE Benedito de Souza Lima (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 290.72,
+                media_mat: 281.38,
+                inse: "Nível V",
+                formacao_docente: "66.00%",
+                taxa_participacao: "88.10%"
+            },
+            {
+                id: 17,
+                nome: "EE Bernardo Murphy Padre (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 217.46,
+                media_mat: 232.50,
+                inse: "Nível IV",
+                formacao_docente: "75.00%",
+                taxa_participacao: "96.55%"
+            },
+            {
+                id: 18,
+                nome: "EE Bernardo Murphy Padre (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 225.99,
+                media_mat: 243.41,
+                inse: "Nível IV",
+                formacao_docente: "66.70%",
+                taxa_participacao: "90.91%"
+            },
+            {
+                id: 19,
+                nome: "EE Branca Baumann do Amaral Professora",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 238.34,
+                media_mat: 233.84,
+                inse: "Nível IV",
+                formacao_docente: "81.00%",
+                taxa_participacao: "97.50%"
+            },
+            {
+                id: 20,
+                nome: "EE Camilo Faustino de Mello Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 257.41,
+                media_mat: 252.42,
+                inse: "Nível VI",
+                formacao_docente: "75.00%",
+                taxa_participacao: "88.46%"
+            },
+            {
+                id: 21,
+                nome: "EE Camilo Faustino de Mello Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 262.89,
+                media_mat: 257.56,
+                inse: "Nível VI",
+                formacao_docente: "53.30%",
+                taxa_participacao: "84.14%"
+            },
+            {
+                id: 22,
+                nome: "EE Claudio Abrahao Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 260.60,
+                media_mat: 246.70,
+                inse: "Nível V",
+                formacao_docente: "83.50%",
+                taxa_participacao: "85.93%"
+            },
+            {
+                id: 23,
+                nome: "EE Claudio Abrahao Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 271.69,
+                media_mat: 268.43,
+                inse: "Nível V",
+                formacao_docente: "46.90%",
+                taxa_participacao: "86.18%"
+            },
+            {
+                id: 24,
+                nome: "EE Dagoberto Jose Machado",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 255.07,
+                media_mat: 254.04,
+                inse: "Nível V",
+                formacao_docente: "62.50%",
+                taxa_participacao: "100.00%"
+            },
+            {
+                id: 25,
+                nome: "EE Deodato Wertheimer Doutor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 266.96,
+                media_mat: 268.53,
+                inse: "Nível V",
+                formacao_docente: "63.50%",
+                taxa_participacao: "94.64%"
+            },
+            {
+                id: 26,
+                nome: "EE Deodato Wertheimer Doutor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 311.59,
+                media_mat: 302.25,
+                inse: "Nível V",
+                formacao_docente: "61.20%",
+                taxa_participacao: "101.89%"
+            },
+            {
+                id: 27,
+                nome: "EE Dora Peretti de Oliveira Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 255.49,
+                media_mat: 252.35,
+                inse: "Nível V",
+                formacao_docente: "58.20%",
+                taxa_participacao: "98.11%"
+            },
+            {
+                id: 28,
+                nome: "EE Dora Peretti de Oliveira Professora (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 263.58,
+                media_mat: 256.44,
+                inse: "Nível V",
+                formacao_docente: "56.30%",
+                taxa_participacao: "92.20%"
+            },
+            {
+                id: 29,
+                nome: "EE Paulo Tapajos",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 257.71,
+                media_mat: 272.91,
+                inse: "Nível V",
+                formacao_docente: "71.40%",
+                taxa_participacao: "90.00%"
+            },
+            {
+                id: 30,
+                nome: "EE Elisiario Pinto de Morais Vereador (9º Ano)",
+                municipio: "Salesópolis - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 257.69,
+                media_mat: 261.16,
+                inse: "Nível V",
+                formacao_docente: "68.60%",
+                taxa_participacao: "90.29%"
+            },
+            {
+                id: 31,
+                nome: "EE Elisiario Pinto de Morais Vereador (3º Ano EM)",
+                municipio: "Salesópolis - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 280.87,
+                media_mat: 287.83,
+                inse: "Nível V",
+                formacao_docente: "55.30%",
+                taxa_participacao: "90.38%"
+            },
+            {
+                id: 32,
+                nome: "EE Enedina Gomes de Freitas Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 265.49,
+                media_mat: 274.84,
+                inse: "Nível V",
+                formacao_docente: "82.40%",
+                taxa_participacao: "94.74%"
+            },
+            {
+                id: 33,
+                nome: "EE Enedina Gomes de Freitas Professora (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 276.80,
+                media_mat: 263.47,
+                inse: "Nível V",
+                formacao_docente: "70.80%",
+                taxa_participacao: "84.05%"
+            },
+            {
+                id: 34,
+                nome: "EE Euryclides de Jesus Zerbini",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 255.00,
+                media_mat: 250.51,
+                inse: "Nível V",
+                formacao_docente: "69.80%",
+                taxa_participacao: "96.14%"
+            },
+            {
+                id: 35,
+                nome: "EE Firmino Ladeira Professor",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 276.63,
+                media_mat: 273.30,
+                inse: "Nível V",
+                formacao_docente: "67.60%",
+                taxa_participacao: "91.21%"
+            },
+            {
+                id: 36,
+                nome: "EE Francisco de Souza Mello Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 254.80,
+                media_mat: 256.75,
+                inse: "Nível V",
+                formacao_docente: "53.40%",
+                taxa_participacao: "101.50%"
+            },
+            {
+                id: 37,
+                nome: "EE Francisco de Souza Mello Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 290.96,
+                media_mat: 282.53,
+                inse: "Nível V",
+                formacao_docente: "64.20%",
+                taxa_participacao: "85.45%"
+            },
+            {
+                id: 38,
+                nome: "EE Francisco Ferreira Lopes (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 292.44,
+                media_mat: 281.63,
+                inse: "Nível V",
+                formacao_docente: "49.00%",
+                taxa_participacao: "97.49%"
+            },
+            {
+                id: 39,
+                nome: "EE Gabriel Pereira (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 274.23,
+                media_mat: 247.91,
+                inse: "Nível V",
+                formacao_docente: "72.70%",
+                taxa_participacao: "102.17%"
+            },
+            {
+                id: 40,
+                nome: "EE Gabriel Pereira (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 276.10,
+                media_mat: 266.96,
+                inse: "Nível V",
+                formacao_docente: "58.60%",
+                taxa_participacao: "96.47%"
+            },
+            {
+                id: 41,
+                nome: "EE Galdino Pinheiro Franco (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 251.81,
+                media_mat: 247.91,
+                inse: "Nível V",
+                formacao_docente: "80.00%",
+                taxa_participacao: "80.85%"
+            },
+            {
+                id: 42,
+                nome: "EE Helena Urbano Nagib Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 246.74,
+                media_mat: 254.10,
+                inse: "Nível V",
+                formacao_docente: "80.50%",
+                taxa_participacao: "93.79%"
+            },
+            {
+                id: 43,
+                nome: "EE Heraclides Batalha de Camargo Desembargador (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 261.03,
+                media_mat: 270.69,
+                inse: "Nível V",
+                formacao_docente: "84.70%",
+                taxa_participacao: "94.67%"
+            },
+            {
+                id: 44,
+                nome: "EE Ilson Gomes Professor",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 256.77,
+                media_mat: 260.42,
+                inse: "Nível V",
+                formacao_docente: "69.20%",
+                taxa_participacao: "90.00%"
+            },
+            {
+                id: 45,
+                nome: "EE Iracema Brasil de Siqueira Professora",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 237.46,
+                media_mat: 241.54,
+                inse: "Nível V",
+                formacao_docente: "66.70%",
+                taxa_participacao: "94.37%"
+            },
+            {
+                id: 46,
+                nome: "EE Irene Caporali de Souza Professora (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 328.73,
+                media_mat: 318.68,
+                inse: "Nível VI",
+                formacao_docente: "54.80%",
+                taxa_participacao: "92.16%"
+            },
+            {
+                id: 47,
+                nome: "EE Isaac Grinberg Historiador (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 286.51,
+                media_mat: 275.80,
+                inse: "Nível V",
+                formacao_docente: "58.20%",
+                taxa_participacao: "81.03%"
+            },
+            {
+                id: 48,
+                nome: "EE Joao Cardoso dos Santos Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 255.75,
+                media_mat: 257.26,
+                inse: "Nível V",
+                formacao_docente: "73.20%",
+                taxa_participacao: "100.00%"
+            },
+            {
+                id: 49,
+                nome: "EE Joao Cardoso dos Santos Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 288.28,
+                media_mat: 283.62,
+                inse: "Nível V",
+                formacao_docente: "67.30%",
+                taxa_participacao: "100.00%"
+            },
+            {
+                id: 50,
+                nome: "EE Jose Ayumar Goncalves de Miranda Professor (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 256.36,
+                media_mat: 253.52,
+                inse: "Nível V",
+                formacao_docente: "68.50%",
+                taxa_participacao: "93.42%"
+            },
+            {
+                id: 51,
+                nome: "EE Jose Ayumar Goncalves de Miranda Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 265.70,
+                media_mat: 258.08,
+                inse: "Nível V",
+                formacao_docente: "46.80%",
+                taxa_participacao: "84.00%"
+            },
+            {
+                id: 52,
+                nome: "EE Jose Carlos Prestes Professor (3º Ano EM)",
+                municipio: "Biritiba Mirim - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 264.97,
+                media_mat: 264.32,
+                inse: "Nível IV",
+                formacao_docente: "76.40%",
+                taxa_participacao: "87.06%"
+            },
+            {
+                id: 53,
+                nome: "EE Jose Ribeiro Guimaraes (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 278.65,
+                media_mat: 272.87,
+                inse: "Nível V",
+                formacao_docente: "76.70%",
+                taxa_participacao: "105.26%"
+            },
+            {
+                id: 54,
+                nome: "EE Jose Ribeiro Guimaraes (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 298.66,
+                media_mat: 283.24,
+                inse: "Nível V",
+                formacao_docente: "73.30%",
+                taxa_participacao: "88.46%"
+            },
+            {
+                id: 55,
+                nome: "EE Jose Sanches Josende Professor (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 272.50,
+                media_mat: 266.66,
+                inse: "Nível IV",
+                formacao_docente: "58.60%",
+                taxa_participacao: "94.83%"
+            },
+            {
+                id: 56,
+                nome: "EE Josephina Najar Hernandez Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 256.47,
+                media_mat: 250.69,
+                inse: "Nível V",
+                formacao_docente: "80.20%",
+                taxa_participacao: "90.32%"
+            },
+            {
+                id: 57,
+                nome: "EE Jovita Franco Arouche Professora",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 250.51,
+                media_mat: 247.37,
+                inse: "Nível IV",
+                formacao_docente: "57.10%",
+                taxa_participacao: "94.12%"
+            },
+            {
+                id: 58,
+                nome: "EE Koheiji Adachi (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 255.83,
+                media_mat: 251.13,
+                inse: "Nível V",
+                formacao_docente: "80.60%",
+                taxa_participacao: "83.25%"
+            },
+            {
+                id: 59,
+                nome: "EE Koheiji Adachi (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 256.55,
+                media_mat: 254.28,
+                inse: "Nível V",
+                formacao_docente: "67.70%",
+                taxa_participacao: "100.00%"
+            },
+            {
+                id: 60,
+                nome: "EE Laurinda Cardoso Mello Freire Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 244.60,
+                media_mat: 247.02,
+                inse: "Nível V",
+                formacao_docente: "71.40%",
+                taxa_participacao: "90.65%"
+            },
+            {
+                id: 61,
+                nome: "EE Laurinda Cardoso Mello Freire Professora (3º Ano EM)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "3_em",
+                media_lp: 262.55,
+                media_mat: 262.51,
+                inse: "Nível V",
+                formacao_docente: "49.00%",
+                taxa_participacao: "83.26%"
+            },
+            {
+                id: 62,
+                nome: "EE Leonor de Oliveira Mello",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 284.66,
+                media_mat: 278.85,
+                inse: "Nível VI",
+                formacao_docente: "70.20%",
+                taxa_participacao: "97.30%"
+            },
+            {
+                id: 63,
+                nome: "EE Lucinda Bastos Professora (9º Ano)",
+                municipio: "Mogi das Cruzes - SP",
+                rede: "Estadual",
+                etapa: "9_ano",
+                media_lp: 253.10,
+                media_mat: 257.52,
+                inse: "Nível V",
+                formacao_docente: "58.70%",
+                taxa_participacao: "94.96%"
+            }
+        ];
+
+        let comparisonChartInstance = null;
+        let inseChartInstance = null;
+
+        window.onload = function() {
+            renderTable(escolasData);
+            initCharts();
+            updateKPIs(escolasData);
+        };
+
+        function getInseCounts(data) {
+            let counts = { 'Nível IV': 0, 'Nível V': 0, 'Nível VI': 0 };
+            data.forEach(e => {
+                if (counts[e.inse] !== undefined) {
+                    counts[e.inse]++;
+                } else {
+                    counts[e.inse] = 1;
+                }
+            });
+            return {
+                labels: Object.keys(counts),
+                values: Object.values(counts)
+            };
+        }
+
+        function initCharts() {
+            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChartInstance = new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: escolasData.map(e => e.nome.length > 25 ? e.nome.substring(0, 25) + '...' : e.nome),
+                    datasets: [
+                        {
+                            label: 'Língua Portuguesa',
+                            data: escolasData.map(e => e.media_lp),
+                            backgroundColor: '#6366f1',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Matemática',
+                            data: escolasData.map(e => e.media_mat),
+                            backgroundColor: '#38bdf8',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: false, min: 210 } }
+                }
+            });
+
+            const initialInse = getInseCounts(escolasData);
+            const ctxInse = document.getElementById('inseChart').getContext('2d');
+            inseChartInstance = new Chart(ctxInse, {
+                type: 'doughnut',
+                data: {
+                    labels: initialInse.labels,
+                    datasets: [{
+                        data: initialInse.values,
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                }
+            });
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('schools-table-body');
+            tbody.innerHTML = '';
+            
+            document.getElementById('counter-escolas').innerText = `Exibindo ${data.length} registros`;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">Nenhum registro encontrado com os filtros selecionados.</td></tr>`;
+                return;
+            }
+
+            data.forEach(escola => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 transition";
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-medium text-slate-800">${escola.nome}</td>
+                    <td class="py-3 px-4 text-slate-600 text-xs">${escola.municipio}</td>
+                    <td class="py-3 px-4 text-slate-600"><span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-lg uppercase font-semibold">${escola.etapa.replace('_', ' ')}</span></td>
+                    <td class="py-3 px-4 text-center font-semibold text-indigo-600">${escola.media_lp}</td>
+                    <td class="py-3 px-4 text-center font-semibold text-blue-600">${escola.media_mat}</td>
+                    <td class="py-3 px-4 text-center font-bold text-emerald-600">${escola.inse}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="showSchoolDetail(${escola.id})" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 p-2 rounded-xl transition text-xs font-medium" title="Ver Detalhes">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterData() {
+            const etapa = document.getElementById('filter-etapa').value;
+            const searchTerm = document.getElementById('search-school').value.toLowerCase();
+            const sortOption = document.getElementById('filter-sort').value;
+
+            let filtered = escolasData.filter(e => {
+                const matchEtapa = (etapa === 'todos' || e.etapa === etapa);
+                const matchSearch = e.nome.toLowerCase().includes(searchTerm);
+                return matchEtapa && matchSearch;
+            });
+
+            if (sortOption === 'nome') {
+                filtered.sort((a, b) => a.nome.localeCompare(b.nome));
+            } else if (sortOption === 'lp_desc') {
+                filtered.sort((a, b) => b.media_lp - a.media_lp);
+            } else if (sortOption === 'mat_desc') {
+                filtered.sort((a, b) => b.media_mat - a.media_mat);
+            }
+
+            renderTable(filtered);
+            updateKPIs(filtered);
+            updateCharts(filtered);
+        }
+
+        function updateCharts(data) {
+            if (!comparisonChartInstance || !inseChartInstance) return;
+            comparisonChartInstance.data.labels = data.map(e => e.nome.length > 25 ? e.nome.substring(0, 25) + '...' : e.nome);
+            comparisonChartInstance.data.datasets[0].data = data.map(e => e.media_lp);
+            comparisonChartInstance.data.datasets[1].data = data.map(e => e.media_mat);
+            comparisonChartInstance.update();
+
+            const newInse = getInseCounts(data);
+            inseChartInstance.data.labels = newInse.labels;
+            inseChartInstance.data.datasets[0].data = newInse.values;
+            inseChartInstance.update();
+        }
+
+        function updateKPIs(data) {
+            document.getElementById('kpi-total-escolas').innerText = data.length;
+            if(data.length > 0) {
+                const avgLP = (data.reduce((acc, curr) => acc + curr.media_lp, 0) / data.length).toFixed(1);
+                const avgMat = (data.reduce((acc, curr) => acc + curr.media_mat, 0) / data.length).toFixed(1);
+
+                document.getElementById('kpi-media-lp').innerText = avgLP;
+                document.getElementById('kpi-media-mat').innerText = avgMat;
+            }
+        }
+
+        function showSchoolDetail(id) {
+            const escola = escolasData.find(e => e.id === id);
+            if (!escola) return;
+
+            document.getElementById('modal-school-name').innerText = escola.nome;
+            document.getElementById('modal-school-content').innerHTML = `
+                <div class="grid grid-cols-2 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Município</p>
+                        <p class="font-bold text-slate-800">${escola.municipio}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Nível Socioeconômico (INSE)</p>
+                        <p class="font-bold text-emerald-600 text-lg">${escola.inse}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Média Língua Portuguesa</p>
+                        <p class="font-bold text-indigo-600 text-lg">${escola.media_lp}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Média Matemática</p>
+                        <p class="font-bold text-blue-600 text-lg">${escola.media_mat}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Adequação Formação Docente</p>
+                        <p class="font-bold text-slate-800">${escola.formacao_docente}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Taxa de Participação</p>
+                        <p class="font-bold text-slate-800">${escola.taxa_participacao}</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
