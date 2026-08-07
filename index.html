@@ -16,18 +16,24 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
                 <div class="bg-indigo-700 p-2.5 rounded-xl shadow-inner">
                     <i class="fa-solid fa-graduation-cap text-2xl text-amber-400"></i>
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">SAEB 2025 - Unidade Regional de Ensino de Mogi das Cruzes</h1>
-                    <p class="text-xs text-indigo-200">Boletins Oficiais do MEC • 63 Escolas Consolidadas</p>
+                    <p class="text-xs text-indigo-200">Boletins Oficiais do MEC • Unidade Regional de Ensino de Mogi das Cruzes</p>
                 </div>
+            </div>
+            <div>
+                <button onclick="openNoticeModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-bold px-4 py-2.5 rounded-xl shadow-lg transition flex items-center space-x-2 text-sm">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Simulador Nota IDEB</span>
+                </button>
             </div>
         </div>
     </header>
@@ -156,6 +162,155 @@
 
     </main>
 
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© 2025/2026 SAEB - Unidade Regional de Ensino de Mogi das Cruzes. Todos os direitos reservados.</p>
+            <p class="text-slate-300 font-medium">Desenvolvido por Katsusuke Yamazaki Filho</p>
+        </div>
+    </footer>
+
+    <div id="notice-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center space-x-3 text-amber-600">
+                <div class="p-3 bg-amber-50 rounded-2xl text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Orientação Técnica - INEP/MEC</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                Este simulador de cálculo do IDEB segue rigorosamente a <strong>Nota Técnica Oficial do INEP/MEC</strong>. O índice é obtido através do produto entre a <em>Nota Padronizada (N)</em> das proficiências de Língua Portuguesa e Matemática (convertidas para a escala de 0 a 10) e o <em>Indicador de Rendimento / Fluxo Escolar (P)</em> baseado nas taxas médias de aprovação do Censo Escolar.
+            </p>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeNoticeAndOpenSimulator()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition shadow-md">
+                    Ciente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulator Modal (Modern INEP Layout with Real-time Search) -->
+    <div id="simulator-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl space-y-6 my-8">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-calculator text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Simulador Avançado do IDEB</h3>
+                        <p class="text-xs text-slate-500">Cálculo oficial baseado no padrão INEP/MEC</p>
+                    </div>
+                </div>
+                <button onclick="closeSimulatorModal()" class="text-slate-400 hover:text-slate-600 text-lg p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-5 text-sm">
+                <!-- School selection with instant search input -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Buscar e Selecionar Escola *</label>
+                    <div class="relative mb-2">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="sim-school-search" oninput="filterSimulatorSchools()" placeholder="Digite para buscar entre todas as 63 escolas..." class="w-full pl-9 pr-3 bg-slate-50 border border-slate-300 rounded-xl py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <select id="sim-school" size="4" onchange="onSimulatorSchoolChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+
+                <!-- Stage selection -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-2">Escolha a Etapa de Ensino para Simulação *</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center space-x-3 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                            <input type="radio" name="sim_etapa" value="fund_finais" onchange="onSimulatorStageChange()" class="text-indigo-600 focus:ring-indigo-500">
+                            <span class="font-medium text-slate-800 text-sm">Ensino Fundamental - Anos Finais (9º Ano)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                            <input type="radio" name="sim_etapa" value="ensino_medio" onchange="onSimulatorStageChange()" class="text-indigo-600 focus:ring-indigo-500">
+                            <span class="font-medium text-slate-800 text-sm">Ensino Médio (3ª Série)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Proficiencies Display -->
+                <div class="bg-blue-50/60 border border-blue-200 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-blue-900 text-xs uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-bar"></i>
+                        <span>Proficiência Média no SAEB (Carregada dos Boletins Oficiais)</span>
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">Língua Portuguesa *</label>
+                            <input type="text" id="sim-prof-lp" readonly class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">Matemática *</label>
+                            <input type="text" id="sim-prof-mat" readonly class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normalized Scores Display -->
+                <div class="bg-emerald-50/60 border border-emerald-200 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Nota Padronizada (Escala de 0 a 10 - Padrão INEP)</span>
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                        <div class="bg-white p-3 rounded-xl border border-emerald-200 shadow-sm">
+                            <span class="text-xs font-medium text-slate-500 block">Língua Portuguesa</span>
+                            <span id="sim-np-lp" class="text-xl font-bold text-emerald-700">-</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-emerald-200 shadow-sm">
+                            <span class="text-xs font-medium text-slate-500 block">Matemática</span>
+                            <span id="sim-np-mat" class="text-xl font-bold text-emerald-700">-</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-emerald-200 shadow-sm">
+                            <span class="text-xs font-medium text-slate-500 block">Média Padronizada (N)</span>
+                            <span id="sim-np-media" class="text-xl font-bold text-indigo-700">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval Rates Section -->
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-percent"></i>
+                        <span>Taxa de Aprovação de acordo com o Censo Escolar (0 a 100%)</span>
+                    </h4>
+                    <div id="approval-inputs-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <!-- Dynamic inputs injected by stage -->
+                    </div>
+                </div>
+
+                <!-- Calculation Result Box -->
+                <div id="result-box" class="hidden bg-indigo-900 text-white p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-xs text-indigo-200 uppercase font-semibold tracking-wider">Nota IDEB Simulada</span>
+                        <div class="text-3xl font-extrabold text-amber-400 mt-1" id="sim-final-ideb">0.00</div>
+                    </div>
+                    <div class="text-right sm:border-l sm:border-indigo-800 sm:pl-6">
+                        <span class="text-xs text-indigo-200 uppercase font-semibold tracking-wider block">Classificação Oficial</span>
+                        <span id="sim-ideb-status" class="inline-block mt-1 px-3 py-1 bg-amber-500 text-slate-900 font-bold rounded-lg text-xs">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200 flex justify-end space-x-3">
+                <button onclick="closeSimulatorModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-medium transition">Cancelar</button>
+                <button onclick="calculateIdeb()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-md flex items-center space-x-2">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Calcular IDEB</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
     <div id="detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -175,762 +330,69 @@
 
     <script>
         const escolasData = [
-            {
-                id: 1,
-                nome: "EE Adelaide Maria de Barros Professora",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 270.84,
-                media_mat: 276.22,
-                inse: "Nível IV",
-                formacao_docente: "71.40%",
-                taxa_participacao: "107.69%"
-            },
-            {
-                id: 2,
-                nome: "EE Adhemar Bolina Professor",
-                municipio: "Biritiba Mirim - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 241.52,
-                media_mat: 245.75,
-                inse: "Nível V",
-                formacao_docente: "68.90%",
-                taxa_participacao: "83.23%"
-            },
-            {
-                id: 3,
-                nome: "EE Alcides Celestino Filho Vereador",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 268.62,
-                media_mat: 269.59,
-                inse: "Nível V",
-                formacao_docente: "81.30%",
-                taxa_participacao: "102.33%"
-            },
-            {
-                id: 4,
-                nome: "EE Alzira Fernandes Scungisqui",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 242.71,
-                media_mat: 244.87,
-                inse: "Nível V",
-                formacao_docente: "62.10%",
-                taxa_participacao: "84.00%"
-            },
-            {
-                id: 5,
-                nome: "EE Americo Sugai",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 265.43,
-                media_mat: 270.39,
-                inse: "Nível V",
-                formacao_docente: "64.00%",
-                taxa_participacao: "97.37%"
-            },
-            {
-                id: 6,
-                nome: "EE Angelica de Jesus Ferreira",
-                municipio: "Biritiba Mirim - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 258.32,
-                media_mat: 258.30,
-                inse: "Nível V",
-                formacao_docente: "75.40%",
-                taxa_participacao: "97.74%"
-            },
-            {
-                id: 7,
-                nome: "EE Antonio Marmora Filho Maestro",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 276.71,
-                media_mat: 274.40,
-                inse: "Nível VI",
-                formacao_docente: "75.80%",
-                taxa_participacao: "92.66%"
-            },
-            {
-                id: 8,
-                nome: "EE Aprigio de Oliveira",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 273.80,
-                media_mat: 268.95,
-                inse: "Nível VI",
-                formacao_docente: "57.10%",
-                taxa_participacao: "95.00%"
-            },
-            {
-                id: 9,
-                nome: "EE Aristoteles de Andrade Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 279.38,
-                media_mat: 298.60,
-                inse: "Nível V",
-                formacao_docente: "85.70%",
-                taxa_participacao: "105.26%"
-            },
-            {
-                id: 10,
-                nome: "EE Aristoteles de Andrade Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 279.32,
-                media_mat: 284.24,
-                inse: "Nível V",
-                formacao_docente: "52.20%",
-                taxa_participacao: "100.00%"
-            },
-            {
-                id: 11,
-                nome: "EE Arlindo Aquino de Oliveira Doutor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 274.40,
-                media_mat: 265.88,
-                inse: "Nível V",
-                formacao_docente: "71.40%",
-                taxa_participacao: "89.66%"
-            },
-            {
-                id: 12,
-                nome: "EE Arlindo Aquino de Oliveira Doutor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 272.30,
-                media_mat: 284.24,
-                inse: "Nível V",
-                formacao_docente: "30.40%",
-                taxa_participacao: "109.09%"
-            },
-            {
-                id: 13,
-                nome: "EE Benedito Borges Vieira Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 262.55,
-                media_mat: 269.79,
-                inse: "Nível V",
-                formacao_docente: "73.30%",
-                taxa_participacao: "90.00%"
-            },
-            {
-                id: 14,
-                nome: "EE Benedito Borges Vieira Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 268.26,
-                media_mat: 275.21,
-                inse: "Nível V",
-                formacao_docente: "52.00%",
-                taxa_participacao: "85.92%"
-            },
-            {
-                id: 15,
-                nome: "EE Benedito de Souza Lima (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 263.82,
-                media_mat: 271.41,
-                inse: "Nível V",
-                formacao_docente: "71.40%",
-                taxa_participacao: "97.73%"
-            },
-            {
-                id: 16,
-                nome: "EE Benedito de Souza Lima (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 290.72,
-                media_mat: 281.38,
-                inse: "Nível V",
-                formacao_docente: "66.00%",
-                taxa_participacao: "88.10%"
-            },
-            {
-                id: 17,
-                nome: "EE Bernardo Murphy Padre (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 217.46,
-                media_mat: 232.50,
-                inse: "Nível IV",
-                formacao_docente: "75.00%",
-                taxa_participacao: "96.55%"
-            },
-            {
-                id: 18,
-                nome: "EE Bernardo Murphy Padre (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 225.99,
-                media_mat: 243.41,
-                inse: "Nível IV",
-                formacao_docente: "66.70%",
-                taxa_participacao: "90.91%"
-            },
-            {
-                id: 19,
-                nome: "EE Branca Baumann do Amaral Professora",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 238.34,
-                media_mat: 233.84,
-                inse: "Nível IV",
-                formacao_docente: "81.00%",
-                taxa_participacao: "97.50%"
-            },
-            {
-                id: 20,
-                nome: "EE Camilo Faustino de Mello Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 257.41,
-                media_mat: 252.42,
-                inse: "Nível VI",
-                formacao_docente: "75.00%",
-                taxa_participacao: "88.46%"
-            },
-            {
-                id: 21,
-                nome: "EE Camilo Faustino de Mello Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 262.89,
-                media_mat: 257.56,
-                inse: "Nível VI",
-                formacao_docente: "53.30%",
-                taxa_participacao: "84.14%"
-            },
-            {
-                id: 22,
-                nome: "EE Claudio Abrahao Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 260.60,
-                media_mat: 246.70,
-                inse: "Nível V",
-                formacao_docente: "83.50%",
-                taxa_participacao: "85.93%"
-            },
-            {
-                id: 23,
-                nome: "EE Claudio Abrahao Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 271.69,
-                media_mat: 268.43,
-                inse: "Nível V",
-                formacao_docente: "46.90%",
-                taxa_participacao: "86.18%"
-            },
-            {
-                id: 24,
-                nome: "EE Dagoberto Jose Machado",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 255.07,
-                media_mat: 254.04,
-                inse: "Nível V",
-                formacao_docente: "62.50%",
-                taxa_participacao: "100.00%"
-            },
-            {
-                id: 25,
-                nome: "EE Deodato Wertheimer Doutor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 266.96,
-                media_mat: 268.53,
-                inse: "Nível V",
-                formacao_docente: "63.50%",
-                taxa_participacao: "94.64%"
-            },
-            {
-                id: 26,
-                nome: "EE Deodato Wertheimer Doutor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 311.59,
-                media_mat: 302.25,
-                inse: "Nível V",
-                formacao_docente: "61.20%",
-                taxa_participacao: "101.89%"
-            },
-            {
-                id: 27,
-                nome: "EE Dora Peretti de Oliveira Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 255.49,
-                media_mat: 252.35,
-                inse: "Nível V",
-                formacao_docente: "58.20%",
-                taxa_participacao: "98.11%"
-            },
-            {
-                id: 28,
-                nome: "EE Dora Peretti de Oliveira Professora (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 263.58,
-                media_mat: 256.44,
-                inse: "Nível V",
-                formacao_docente: "56.30%",
-                taxa_participacao: "92.20%"
-            },
-            {
-                id: 29,
-                nome: "EE Paulo Tapajos",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 257.71,
-                media_mat: 272.91,
-                inse: "Nível V",
-                formacao_docente: "71.40%",
-                taxa_participacao: "90.00%"
-            },
-            {
-                id: 30,
-                nome: "EE Elisiario Pinto de Morais Vereador (9º Ano)",
-                municipio: "Salesópolis - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 257.69,
-                media_mat: 261.16,
-                inse: "Nível V",
-                formacao_docente: "68.60%",
-                taxa_participacao: "90.29%"
-            },
-            {
-                id: 31,
-                nome: "EE Elisiario Pinto de Morais Vereador (3º Ano EM)",
-                municipio: "Salesópolis - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 280.87,
-                media_mat: 287.83,
-                inse: "Nível V",
-                formacao_docente: "55.30%",
-                taxa_participacao: "90.38%"
-            },
-            {
-                id: 32,
-                nome: "EE Enedina Gomes de Freitas Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 265.49,
-                media_mat: 274.84,
-                inse: "Nível V",
-                formacao_docente: "82.40%",
-                taxa_participacao: "94.74%"
-            },
-            {
-                id: 33,
-                nome: "EE Enedina Gomes de Freitas Professora (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 276.80,
-                media_mat: 263.47,
-                inse: "Nível V",
-                formacao_docente: "70.80%",
-                taxa_participacao: "84.05%"
-            },
-            {
-                id: 34,
-                nome: "EE Euryclides de Jesus Zerbini",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 255.00,
-                media_mat: 250.51,
-                inse: "Nível V",
-                formacao_docente: "69.80%",
-                taxa_participacao: "96.14%"
-            },
-            {
-                id: 35,
-                nome: "EE Firmino Ladeira Professor",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 276.63,
-                media_mat: 273.30,
-                inse: "Nível V",
-                formacao_docente: "67.60%",
-                taxa_participacao: "91.21%"
-            },
-            {
-                id: 36,
-                nome: "EE Francisco de Souza Mello Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 254.80,
-                media_mat: 256.75,
-                inse: "Nível V",
-                formacao_docente: "53.40%",
-                taxa_participacao: "101.50%"
-            },
-            {
-                id: 37,
-                nome: "EE Francisco de Souza Mello Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 290.96,
-                media_mat: 282.53,
-                inse: "Nível V",
-                formacao_docente: "64.20%",
-                taxa_participacao: "85.45%"
-            },
-            {
-                id: 38,
-                nome: "EE Francisco Ferreira Lopes (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 292.44,
-                media_mat: 281.63,
-                inse: "Nível V",
-                formacao_docente: "49.00%",
-                taxa_participacao: "97.49%"
-            },
-            {
-                id: 39,
-                nome: "EE Gabriel Pereira (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 274.23,
-                media_mat: 247.91,
-                inse: "Nível V",
-                formacao_docente: "72.70%",
-                taxa_participacao: "102.17%"
-            },
-            {
-                id: 40,
-                nome: "EE Gabriel Pereira (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 276.10,
-                media_mat: 266.96,
-                inse: "Nível V",
-                formacao_docente: "58.60%",
-                taxa_participacao: "96.47%"
-            },
-            {
-                id: 41,
-                nome: "EE Galdino Pinheiro Franco (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 251.81,
-                media_mat: 247.91,
-                inse: "Nível V",
-                formacao_docente: "80.00%",
-                taxa_participacao: "80.85%"
-            },
-            {
-                id: 42,
-                nome: "EE Helena Urbano Nagib Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 246.74,
-                media_mat: 254.10,
-                inse: "Nível V",
-                formacao_docente: "80.50%",
-                taxa_participacao: "93.79%"
-            },
-            {
-                id: 43,
-                nome: "EE Heraclides Batalha de Camargo Desembargador (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 261.03,
-                media_mat: 270.69,
-                inse: "Nível V",
-                formacao_docente: "84.70%",
-                taxa_participacao: "94.67%"
-            },
-            {
-                id: 44,
-                nome: "EE Ilson Gomes Professor",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 256.77,
-                media_mat: 260.42,
-                inse: "Nível V",
-                formacao_docente: "69.20%",
-                taxa_participacao: "90.00%"
-            },
-            {
-                id: 45,
-                nome: "EE Iracema Brasil de Siqueira Professora",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 237.46,
-                media_mat: 241.54,
-                inse: "Nível V",
-                formacao_docente: "66.70%",
-                taxa_participacao: "94.37%"
-            },
-            {
-                id: 46,
-                nome: "EE Irene Caporali de Souza Professora (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 328.73,
-                media_mat: 318.68,
-                inse: "Nível VI",
-                formacao_docente: "54.80%",
-                taxa_participacao: "92.16%"
-            },
-            {
-                id: 47,
-                nome: "EE Isaac Grinberg Historiador (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 286.51,
-                media_mat: 275.80,
-                inse: "Nível V",
-                formacao_docente: "58.20%",
-                taxa_participacao: "81.03%"
-            },
-            {
-                id: 48,
-                nome: "EE Joao Cardoso dos Santos Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 255.75,
-                media_mat: 257.26,
-                inse: "Nível V",
-                formacao_docente: "73.20%",
-                taxa_participacao: "100.00%"
-            },
-            {
-                id: 49,
-                nome: "EE Joao Cardoso dos Santos Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 288.28,
-                media_mat: 283.62,
-                inse: "Nível V",
-                formacao_docente: "67.30%",
-                taxa_participacao: "100.00%"
-            },
-            {
-                id: 50,
-                nome: "EE Jose Ayumar Goncalves de Miranda Professor (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 256.36,
-                media_mat: 253.52,
-                inse: "Nível V",
-                formacao_docente: "68.50%",
-                taxa_participacao: "93.42%"
-            },
-            {
-                id: 51,
-                nome: "EE Jose Ayumar Goncalves de Miranda Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 265.70,
-                media_mat: 258.08,
-                inse: "Nível V",
-                formacao_docente: "46.80%",
-                taxa_participacao: "84.00%"
-            },
-            {
-                id: 52,
-                nome: "EE Jose Carlos Prestes Professor (3º Ano EM)",
-                municipio: "Biritiba Mirim - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 264.97,
-                media_mat: 264.32,
-                inse: "Nível IV",
-                formacao_docente: "76.40%",
-                taxa_participacao: "87.06%"
-            },
-            {
-                id: 53,
-                nome: "EE Jose Ribeiro Guimaraes (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 278.65,
-                media_mat: 272.87,
-                inse: "Nível V",
-                formacao_docente: "76.70%",
-                taxa_participacao: "105.26%"
-            },
-            {
-                id: 54,
-                nome: "EE Jose Ribeiro Guimaraes (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 298.66,
-                media_mat: 283.24,
-                inse: "Nível V",
-                formacao_docente: "73.30%",
-                taxa_participacao: "88.46%"
-            },
-            {
-                id: 55,
-                nome: "EE Jose Sanches Josende Professor (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 272.50,
-                media_mat: 266.66,
-                inse: "Nível IV",
-                formacao_docente: "58.60%",
-                taxa_participacao: "94.83%"
-            },
-            {
-                id: 56,
-                nome: "EE Josephina Najar Hernandez Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 256.47,
-                media_mat: 250.69,
-                inse: "Nível V",
-                formacao_docente: "80.20%",
-                taxa_participacao: "90.32%"
-            },
-            {
-                id: 57,
-                nome: "EE Jovita Franco Arouche Professora",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 250.51,
-                media_mat: 247.37,
-                inse: "Nível IV",
-                formacao_docente: "57.10%",
-                taxa_participacao: "94.12%"
-            },
-            {
-                id: 58,
-                nome: "EE Koheiji Adachi (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 255.83,
-                media_mat: 251.13,
-                inse: "Nível V",
-                formacao_docente: "80.60%",
-                taxa_participacao: "83.25%"
-            },
-            {
-                id: 59,
-                nome: "EE Koheiji Adachi (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 256.55,
-                media_mat: 254.28,
-                inse: "Nível V",
-                formacao_docente: "67.70%",
-                taxa_participacao: "100.00%"
-            },
-            {
-                id: 60,
-                nome: "EE Laurinda Cardoso Mello Freire Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 244.60,
-                media_mat: 247.02,
-                inse: "Nível V",
-                formacao_docente: "71.40%",
-                taxa_participacao: "90.65%"
-            },
-            {
-                id: 61,
-                nome: "EE Laurinda Cardoso Mello Freire Professora (3º Ano EM)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "3_em",
-                media_lp: 262.55,
-                media_mat: 262.51,
-                inse: "Nível V",
-                formacao_docente: "49.00%",
-                taxa_participacao: "83.26%"
-            },
-            {
-                id: 62,
-                nome: "EE Leonor de Oliveira Mello",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 284.66,
-                media_mat: 278.85,
-                inse: "Nível VI",
-                formacao_docente: "70.20%",
-                taxa_participacao: "97.30%"
-            },
-            {
-                id: 63,
-                nome: "EE Lucinda Bastos Professora (9º Ano)",
-                municipio: "Mogi das Cruzes - SP",
-                rede: "Estadual",
-                etapa: "9_ano",
-                media_lp: 253.10,
-                media_mat: 257.52,
-                inse: "Nível V",
-                formacao_docente: "58.70%",
-                taxa_participacao: "94.96%"
-            }
+            { id: 1, nome: "EE Adelaide Maria de Barros Professora", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 270.84, media_mat: 276.22, inse: "Nível IV", formacao_docente: "71.40%", taxa_participacao: "107.69%" },
+            { id: 2, nome: "EE Adhemar Bolina Professor", municipio: "Biritiba Mirim - SP", rede: "Estadual", etapa: "9_ano", media_lp: 241.52, media_mat: 245.75, inse: "Nível V", formacao_docente: "68.90%", taxa_participacao: "83.23%" },
+            { id: 3, nome: "EE Alcides Celestino Filho Vereador", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 268.62, media_mat: 269.59, inse: "Nível V", formacao_docente: "81.30%", taxa_participacao: "102.33%" },
+            { id: 4, nome: "EE Alzira Fernandes Scungisqui", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 242.71, media_mat: 244.87, inse: "Nível V", formacao_docente: "62.10%", taxa_participacao: "84.00%" },
+            { id: 5, nome: "EE Americo Sugai", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 265.43, media_mat: 270.39, inse: "Nível V", formacao_docente: "64.00%", taxa_participacao: "97.37%" },
+            { id: 6, nome: "EE Angelica de Jesus Ferreira", municipio: "Biritiba Mirim - SP", rede: "Estadual", etapa: "9_ano", media_lp: 258.32, media_mat: 258.30, inse: "Nível V", formacao_docente: "75.40%", taxa_participacao: "97.74%" },
+            { id: 7, nome: "EE Antonio Marmora Filho Maestro", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 276.71, media_mat: 274.40, inse: "Nível VI", formacao_docente: "75.80%", taxa_participacao: "92.66%" },
+            { id: 8, nome: "EE Aprigio de Oliveira", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 273.80, media_mat: 268.95, inse: "Nível VI", formacao_docente: "57.10%", taxa_participacao: "95.00%" },
+            { id: 9, nome: "EE Aristoteles de Andrade Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 279.38, media_mat: 298.60, inse: "Nível V", formacao_docente: "85.70%", taxa_participacao: "105.26%" },
+            { id: 10, nome: "EE Aristoteles de Andrade Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 279.32, media_mat: 284.24, inse: "Nível V", formacao_docente: "52.20%", taxa_participacao: "100.00%" },
+            { id: 11, nome: "EE Arlindo Aquino de Oliveira Doutor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 274.40, media_mat: 265.88, inse: "Nível V", formacao_docente: "71.40%", taxa_participacao: "89.66%" },
+            { id: 12, nome: "EE Arlindo Aquino de Oliveira Doutor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 272.30, media_mat: 284.24, inse: "Nível V", formacao_docente: "30.40%", taxa_participacao: "109.09%" },
+            { id: 13, nome: "EE Benedito Borges Vieira Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 262.55, media_mat: 269.79, inse: "Nível V", formacao_docente: "73.30%", taxa_participacao: "90.00%" },
+            { id: 14, nome: "EE Benedito Borges Vieira Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 268.26, media_mat: 275.21, inse: "Nível V", formacao_docente: "52.00%", taxa_participacao: "85.92%" },
+            { id: 15, nome: "EE Benedito de Souza Lima (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 263.82, media_mat: 271.41, inse: "Nível V", formacao_docente: "71.40%", taxa_participacao: "97.73%" },
+            { id: 16, nome: "EE Benedito de Souza Lima (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 290.72, media_mat: 281.38, inse: "Nível V", formacao_docente: "66.00%", taxa_participacao: "88.10%" },
+            { id: 17, nome: "EE Bernardo Murphy Padre (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 217.46, media_mat: 232.50, inse: "Nível IV", formacao_docente: "75.00%", taxa_participacao: "96.55%" },
+            { id: 18, nome: "EE Bernardo Murphy Padre (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 225.99, media_mat: 243.41, inse: "Nível IV", formacao_docente: "66.70%", taxa_participacao: "90.91%" },
+            { id: 19, nome: "EE Branca Baumann do Amaral Professora", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 238.34, media_mat: 233.84, inse: "Nível IV", formacao_docente: "81.00%", taxa_participacao: "97.50%" },
+            { id: 20, nome: "EE Camilo Faustino de Mello Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 257.41, media_mat: 252.42, inse: "Nível VI", formacao_docente: "75.00%", taxa_participacao: "88.46%" },
+            { id: 21, nome: "EE Camilo Faustino de Mello Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 262.89, media_mat: 257.56, inse: "Nível VI", formacao_docente: "53.30%", taxa_participacao: "84.14%" },
+            { id: 22, nome: "EE Claudio Abrahao Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 260.60, media_mat: 246.70, inse: "Nível V", formacao_docente: "83.50%", taxa_participacao: "85.93%" },
+            { id: 23, nome: "EE Claudio Abrahao Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 271.69, media_mat: 268.43, inse: "Nível V", formacao_docente: "46.90%", taxa_participacao: "86.18%" },
+            { id: 24, nome: "EE Dagoberto Jose Machado", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 255.07, media_mat: 254.04, inse: "Nível V", formacao_docente: "62.50%", taxa_participacao: "100.00%" },
+            { id: 25, nome: "EE Deodato Wertheimer Doutor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 266.96, media_mat: 268.53, inse: "Nível V", formacao_docente: "63.50%", taxa_participacao: "94.64%" },
+            { id: 26, nome: "EE Deodato Wertheimer Doutor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 311.59, media_mat: 302.25, inse: "Nível V", formacao_docente: "61.20%", taxa_participacao: "101.89%" },
+            { id: 27, nome: "EE Dora Peretti de Oliveira Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 255.49, media_mat: 252.35, inse: "Nível V", formacao_docente: "58.20%", taxa_participacao: "98.11%" },
+            { id: 28, nome: "EE Dora Peretti de Oliveira Professora (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 263.58, media_mat: 256.44, inse: "Nível V", formacao_docente: "56.30%", taxa_participacao: "92.20%" },
+            { id: 29, nome: "EE Paulo Tapajos", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 257.71, media_mat: 272.91, inse: "Nível V", formacao_docente: "71.40%", taxa_participacao: "90.00%" },
+            { id: 30, nome: "EE Elisiario Pinto de Morais Vereador (9º Ano)", municipio: "Salesópolis - SP", rede: "Estadual", etapa: "9_ano", media_lp: 257.69, media_mat: 261.16, inse: "Nível V", formacao_docente: "68.60%", taxa_participacao: "90.29%" },
+            { id: 31, nome: "EE Elisiario Pinto de Morais Vereador (3º Ano EM)", municipio: "Salesópolis - SP", rede: "Estadual", etapa: "3_em", media_lp: 280.87, media_mat: 287.83, inse: "Nível V", formacao_docente: "55.30%", taxa_participacao: "90.38%" },
+            { id: 32, nome: "EE Enedina Gomes de Freitas Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 265.49, media_mat: 274.84, inse: "Nível V", formacao_docente: "82.40%", taxa_participacao: "94.74%" },
+            { id: 33, nome: "EE Enedina Gomes de Freitas Professora (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 276.80, media_mat: 263.47, inse: "Nível V", formacao_docente: "70.80%", taxa_participacao: "84.05%" },
+            { id: 34, nome: "EE Euryclides de Jesus Zerbini", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 255.00, media_mat: 250.51, inse: "Nível V", formacao_docente: "69.80%", taxa_participacao: "96.14%" },
+            { id: 35, nome: "EE Firmino Ladeira Professor", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 276.63, media_mat: 273.30, inse: "Nível V", formacao_docente: "67.60%", taxa_participacao: "91.21%" },
+            { id: 36, nome: "EE Francisco de Souza Mello Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 254.80, media_mat: 256.75, inse: "Nível V", formacao_docente: "53.40%", taxa_participacao: "101.50%" },
+            { id: 37, nome: "EE Francisco de Souza Mello Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 290.96, media_mat: 282.53, inse: "Nível V", formacao_docente: "64.20%", taxa_participacao: "85.45%" },
+            { id: 38, nome: "EE Francisco Ferreira Lopes (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 292.44, media_mat: 281.63, inse: "Nível V", formacao_docente: "49.00%", taxa_participacao: "97.49%" },
+            { id: 39, nome: "EE Gabriel Pereira (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 274.23, media_mat: 247.91, inse: "Nível V", formacao_docente: "72.70%", taxa_participacao: "102.17%" },
+            { id: 40, nome: "EE Gabriel Pereira (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 276.10, media_mat: 266.96, inse: "Nível V", formacao_docente: "58.60%", taxa_participacao: "96.47%" },
+            { id: 41, nome: "EE Galdino Pinheiro Franco (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 251.81, media_mat: 247.91, inse: "Nível V", formacao_docente: "80.00%", taxa_participacao: "80.85%" },
+            { id: 42, nome: "EE Helena Urbano Nagib Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 246.74, media_mat: 254.10, inse: "Nível V", formacao_docente: "80.50%", taxa_participacao: "93.79%" },
+            { id: 43, nome: "EE Heraclides Batalha de Camargo Desembargador (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 261.03, media_mat: 270.69, inse: "Nível V", formacao_docente: "84.70%", taxa_participacao: "94.67%" },
+            { id: 44, nome: "EE Ilson Gomes Professor", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 256.77, media_mat: 260.42, inse: "Nível V", formacao_docente: "69.20%", taxa_participacao: "90.00%" },
+            { id: 45, nome: "EE Iracema Brasil de Siqueira Professora", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 237.46, media_mat: 241.54, inse: "Nível V", formacao_docente: "66.70%", taxa_participacao: "94.37%" },
+            { id: 46, nome: "EE Irene Caporali de Souza Professora (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 328.73, media_mat: 318.68, inse: "Nível VI", formacao_docente: "54.80%", taxa_participacao: "92.16%" },
+            { id: 47, nome: "EE Isaac Grinberg Historiador (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 286.51, media_mat: 275.80, inse: "Nível V", formacao_docente: "58.20%", taxa_participacao: "81.03%" },
+            { id: 48, nome: "EE Joao Cardoso dos Santos Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 255.75, media_mat: 257.26, inse: "Nível V", formacao_docente: "73.20%", taxa_participacao: "100.00%" },
+            { id: 49, nome: "EE Joao Cardoso dos Santos Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 288.28, media_mat: 283.62, inse: "Nível V", formacao_docente: "67.30%", taxa_participacao: "100.00%" },
+            { id: 50, nome: "EE Jose Ayumar Goncalves de Miranda Professor (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 256.36, media_mat: 253.52, inse: "Nível V", formacao_docente: "68.50%", taxa_participacao: "93.42%" },
+            { id: 51, nome: "EE Jose Ayumar Goncalves de Miranda Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 265.70, media_mat: 258.08, inse: "Nível V", formacao_docente: "46.80%", taxa_participacao: "84.00%" },
+            { id: 52, nome: "EE Jose Carlos Prestes Professor (3º Ano EM)", municipio: "Biritiba Mirim - SP", rede: "Estadual", etapa: "3_em", media_lp: 264.97, media_mat: 264.32, inse: "Nível IV", formacao_docente: "76.40%", taxa_participacao: "87.06%" },
+            { id: 53, nome: "EE Jose Ribeiro Guimaraes (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 278.65, media_mat: 272.87, inse: "Nível V", formacao_docente: "76.70%", taxa_participacao: "105.26%" },
+            { id: 54, nome: "EE Jose Ribeiro Guimaraes (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 298.66, media_mat: 283.24, inse: "Nível V", formacao_docente: "73.30%", taxa_participacao: "88.46%" },
+            { id: 55, nome: "EE Jose Sanches Josende Professor (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 272.50, media_mat: 266.66, inse: "Nível IV", formacao_docente: "58.60%", taxa_participacao: "94.83%" },
+            { id: 56, nome: "EE Josephina Najar Hernandez Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 256.47, media_mat: 250.69, inse: "Nível V", formacao_docente: "80.20%", taxa_participacao: "90.32%" },
+            { id: 57, nome: "EE Jovita Franco Arouche Professora", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 250.51, media_mat: 247.37, inse: "Nível IV", formacao_docente: "57.10%", taxa_participacao: "94.12%" },
+            { id: 58, nome: "EE Koheiji Adachi (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 255.83, media_mat: 251.13, inse: "Nível V", formacao_docente: "80.60%", taxa_participacao: "83.25%" },
+            { id: 59, nome: "EE Koheiji Adachi (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 256.55, media_mat: 254.28, inse: "Nível V", formacao_docente: "67.70%", taxa_participacao: "100.00%" },
+            { id: 60, nome: "EE Laurinda Cardoso Mello Freire Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 244.60, media_mat: 247.02, inse: "Nível V", formacao_docente: "71.40%", taxa_participacao: "90.65%" },
+            { id: 61, nome: "EE Laurinda Cardoso Mello Freire Professora (3º Ano EM)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "3_em", media_lp: 262.55, media_mat: 262.51, inse: "Nível V", formacao_docente: "49.00%", taxa_participacao: "83.26%" },
+            { id: 62, nome: "EE Leonor de Oliveira Mello", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 284.66, media_mat: 278.85, inse: "Nível VI", formacao_docente: "70.20%", taxa_participacao: "97.30%" },
+            { id: 63, nome: "EE Lucinda Bastos Professora (9º Ano)", municipio: "Mogi das Cruzes - SP", rede: "Estadual", etapa: "9_ano", media_lp: 253.10, media_mat: 257.52, inse: "Nível V", formacao_docente: "58.70%", taxa_participacao: "94.96%" }
         ];
 
         let comparisonChartInstance = null;
@@ -940,6 +402,7 @@
             renderTable(escolasData);
             initCharts();
             updateKPIs(escolasData);
+            populateSimulatorSchoolSelect();
         };
 
         function getInseCounts(data) {
@@ -1123,6 +586,176 @@
 
         function closeDetailModal() {
             document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        function openNoticeModal() {
+            document.getElementById('notice-modal').classList.remove('hidden');
+        }
+
+        function closeNoticeAndOpenSimulator() {
+            document.getElementById('notice-modal').classList.add('hidden');
+            document.getElementById('simulator-modal').classList.remove('hidden');
+        }
+
+        function closeSimulatorModal() {
+            document.getElementById('simulator-modal').classList.add('hidden');
+            document.getElementById('result-box').classList.add('hidden');
+        }
+
+        function populateSimulatorSchoolSelect(filterText = '') {
+            const select = document.getElementById('sim-school');
+            select.innerHTML = '';
+            
+            const sortedSchools = [...escolasData].sort((a, b) => a.nome.localeCompare(b.nome));
+            const filtered = sortedSchools.filter(e => e.nome.toLowerCase().includes(filterText.toLowerCase()));
+
+            if (filtered.length === 0) {
+                select.innerHTML = '<option value="">Nenhuma escola encontrada</option>';
+                return;
+            }
+
+            filtered.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.id;
+                opt.textContent = `${e.nome} (${e.etapa === '9_ano' ? '9º Ano EF' : '3º Ano EM'})`;
+                select.appendChild(opt);
+            });
+        }
+
+        function filterSimulatorSchools() {
+            const query = document.getElementById('sim-school-search').value;
+            populateSimulatorSchoolSelect(query);
+        }
+
+        function onSimulatorSchoolChange() {
+            const schoolId = document.getElementById('sim-school').value;
+            if (!schoolId) {
+                document.getElementById('sim-prof-lp').value = '';
+                document.getElementById('sim-prof-mat').value = '';
+                return;
+            }
+            const escola = escolasData.find(e => e.id == schoolId);
+            if (escola) {
+                document.getElementById('sim-prof-lp').value = escola.media_lp;
+                document.getElementById('sim-prof-mat').value = escola.media_mat;
+
+                const radios = document.getElementsByName('sim_etapa');
+                if (escola.etapa === '9_ano') {
+                    radios[0].checked = true;
+                } else {
+                    radios[1].checked = true;
+                }
+                updateSimulatorStageInputs();
+                computeNormalizedScores();
+            }
+        }
+
+        function onSimulatorStageChange() {
+            updateSimulatorStageInputs();
+            computeNormalizedScores();
+        }
+
+        function updateSimulatorStageInputs() {
+            const container = document.getElementById('approval-inputs-container');
+            container.innerHTML = '';
+            
+            const radios = document.getElementsByName('sim_etapa');
+            let stage = 'fund_finais';
+            for (const r of radios) {
+                if (r.checked) stage = r.value;
+            }
+
+            if (stage === 'fund_finais') {
+                ['6º Ano', '7º Ano', '8º Ano', '9º Ano'].forEach((ano, idx) => {
+                    container.innerHTML += `
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">${ano} (%)</label>
+                            <input type="number" id="app-${idx}" value="95.0" min="0" max="100" step="0.1" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    `;
+                });
+            } else {
+                ['1ª Série', '2ª Série', '3ª Série'].forEach((serie, idx) => {
+                    container.innerHTML += `
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">${serie} (%)</label>
+                            <input type="number" id="app-${idx}" value="92.0" min="0" max="100" step="0.1" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function computeNormalizedScores() {
+            const lpVal = parseFloat(document.getElementById('sim-prof-lp').value) || 0;
+            const matVal = parseFloat(document.getElementById('sim-prof-mat').value) || 0;
+
+            const radios = document.getElementsByName('sim_etapa');
+            let stage = 'fund_finais';
+            for (const r of radios) {
+                if (r.checked) stage = r.value;
+            }
+
+            let npLp = 0;
+            let npMat = 0;
+
+            if (stage === 'fund_finais') {
+                npLp = ((lpVal - 100) / 300) * 10;
+                npMat = ((matVal - 100) / 300) * 10;
+            } else {
+                npLp = ((lpVal - 115.9) / 336) * 10;
+                npMat = ((matVal - 111.7) / 354) * 10;
+            }
+
+            npLp = Math.max(0, Math.min(10, npLp));
+            npMat = Math.max(0, Math.min(10, npMat));
+            const npMedia = (npLp + npMat) / 2;
+
+            document.getElementById('sim-np-lp').textContent = npLp.toFixed(2);
+            document.getElementById('sim-np-mat').textContent = npMat.toFixed(2);
+            document.getElementById('sim-np-media').textContent = npMedia.toFixed(2);
+
+            return npMedia;
+        }
+
+        function calculateIdeb() {
+            const npMedia = computeNormalizedScores();
+            
+            const radios = document.getElementsByName('sim_etapa');
+            let stage = 'fund_finais';
+            for (const r of radios) {
+                if (r.checked) stage = r.value;
+            }
+
+            const count = stage === 'fund_finais' ? 4 : 3;
+            let sumRates = 0;
+            for (let i = 0; i < count; i++) {
+                const val = parseFloat(document.getElementById(`app-${i}`).value) || 0;
+                sumRates += val;
+            }
+
+            const avgRatePercent = sumRates / count;
+            const P = avgRatePercent / 100;
+
+            const idebScore = P * npMedia;
+
+            document.getElementById('sim-final-ideb').textContent = idebScore.toFixed(2);
+
+            let statusText = "Intermediário (Atenção)";
+            let statusBg = "bg-amber-500 text-slate-900";
+            if (idebScore >= 6.0) {
+                statusText = "Alto / Referência (≥ 6.0)";
+                statusBg = "bg-emerald-500 text-white";
+            } else if (idebScore < 4.0) {
+                statusText = "Crítico (< 4.0)";
+                statusBg = "bg-rose-500 text-white";
+            }
+
+            const badge = document.getElementById('sim-ideb-status');
+            badge.textContent = statusText;
+            badge.className = `inline-block mt-1 px-3 py-1 font-bold rounded-lg text-xs ${statusBg}`;
+
+            document.getElementById('result-box').classList.remove('hidden');
         }
     </script>
 </body>
