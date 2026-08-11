@@ -766,5 +766,29 @@
         "inse":  "Nível V",
         "formacao_docente":  "56.50%",
         "taxa_participacao":  "100.00%"
+    },
+    {
+        "id":  65,
+        "nome":  "Olga Chakur Farah Professora",
+        "municipio":  "Salesópolis - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  284.94,
+        "media_mat":  287.62,
+        "inse":  "Nível V",
+        "formacao_docente":  "60.30%",
+        "taxa_participacao":  "98.28%"
+    },
+	{
+        "id":  66,
+        "nome":  "Olga Chakur Farah Professora",
+        "municipio":  "Salesópolis - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  254.45,
+        "media_mat":  265.40,
+        "inse":  "Nível V",
+        "formacao_docente":  "58.70%",
+        "taxa_participacao":  "97.30%"
     }
 ]
