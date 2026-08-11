@@ -826,5 +826,17 @@
         "inse":  "Nível V",
         "formacao_docente":  "57.10%",
         "taxa_participacao":  "88.10%"
+    },
+	{
+        "id":  70,
+        "nome":  "Ilson Gomes Professor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  292.32,
+        "media_mat":  266.64,
+        "inse":  "Nível V",
+        "formacao_docente":  "41.20%",
+        "taxa_participacao":  "95.24%"
     }
 ]
