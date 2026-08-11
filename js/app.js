@@ -12,4 +12,20 @@ function rates(){const x=school(), years=x?.etapa==='3_em'?['1ª série','2ª s�
 function sim(){const x=school();if(!x)return;const lim=x.etapa==='9_ano'?{lp:[100,400],mat:[100,400]}:{lp:[117,451],mat:[111,467]};const nlp=Math.max(0,Math.min(10,(x.media_lp-lim.lp[0])/(lim.lp[1]-lim.lp[0])*10)),nmat=Math.max(0,Math.min(10,(x.media_mat-lim.mat[0])/(lim.mat[1]-lim.mat[0])*10));$('scores').textContent=`${labels[x.etapa]} · Proficiências: LP ${x.media_lp.toFixed(2)} · MAT ${x.media_mat.toFixed(2)}. Nota padronizada N: ${((nlp+nmat)/2).toFixed(2)}.`;return (nlp+nmat)/2}
 async function init(){all=await fetch('./dados/escolas.json').then(r=>r.json());const options=[...all].sort((a,b)=>a.nome.localeCompare(b.nome)||a.etapa.localeCompare(b.etapa)).map(x=>`<option value="${x.id}">${x.nome.replace(/ \([^)]*\)$/,'')} — ${labels[x.etapa]}</option>`).join('');$('search').innerHTML+=options;$('school').innerHTML='<option value="">Selecione uma escola e etapa</option>'+options;rates();render();}
 function resetSimulator(){$('school').value='';rates();$('scores').textContent='Selecione uma escola e etapa para visualizar as proficiências.';$('ideb').textContent=''}
-['search','stage'].forEach(id=>$(id).addEventListener('change',render));$('school').addEventListener('change',()=>{rates();sim()});$('rows').addEventListener('click',e=>{if(e.target.classList.contains('use')){$('school').value=e.target.dataset.id;rates();sim();$('simulator-modal').classList.remove('hidden')}});$('calculate').addEventListener('click',()=>{const n=sim();if(n===undefined)return;const p=[...document.querySelectorAll('.rate')].reduce((s,x)=>s+(+x.value||0),0)/document.querySelectorAll('.rate').length/100;$('ideb').textContent=`IDEB simulado: ${(n*p).toFixed(2)}`;});$('open-simulator').onclick=()=>$('notice-modal').classList.remove('hidden');$('acknowledge').onclick=()=>{$('notice-modal').classList.add('hidden');resetSimulator();$('simulator-modal').classList.remove('hidden')};$('close-simulator').onclick=()=>$('simulator-modal').classList.add('hidden');$('print').onclick=()=>print();init();
+['search','stage'].forEach(id=>$(id).addEventListener('change',render));$('school').addEventListener('change',()=>{rates();sim()});$('rows').addEventListener('click',e=>{if(e.target.classList.contains('use')){$('school').value=e.target.dataset.id;rates();sim();$('simulator-modal').classList.remove('hidden')}});$('calculate').addEventListener('click',()=>{const n=sim();if(n===undefined)return;const p=[...document.querySelectorAll('.rate')].reduce((s,x)=>s+(+x.value||0),0)/document.querySelectorAll('.rate').length/100;$('ideb').textContent=`IDEB simulado: ${(n*p).toFixed(2)}`;});$('open-simulator').onclick=()=>$('notice-modal').classList.remove('hidden');$('acknowledge').onclick=()=>{$('notice-modal').classList.add('hidden');resetSimulator();$('simulator-modal').classList.remove('hidden')};$('close-simulator').onclick=()=>$('simulator-modal').classList.add('hidden');$('print').onclick=()=>print();
+
+// --- Lógica do Modal de Fórmulas (Nota Técnica Inep) ---
+$('link-formulas').addEventListener('click', (e) => {
+    e.preventDefault();
+    $('modal-formulas').classList.remove('hidden');
+});
+
+const fecharModalFormulas = () => {
+    $('modal-formulas').classList.add('hidden');
+};
+
+$('close-formulas').addEventListener('click', fecharModalFormulas);
+$('back-to-simulator').addEventListener('click', fecharModalFormulas);
+// --------------------------------------------------------
+
+init();
