@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IDEB Consolidado | SAEB 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6">
+
+    <!-- Navegação entre abas -->
+    <nav class="mb-8 border-b pb-4">
+        <a href="index.html" class="text-slate-500 hover:text-indigo-600 mr-6">Proficiências</a>
+        <a href="ideb.html" class="font-bold text-indigo-700 border-b-2 border-indigo-700 pb-2">IDEB Consolidado</a>
+    </nav>
+
+    <!-- Filtros -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <select class="p-2 border rounded"><option>Todas as escolas</option></select>
+        <select class="p-2 border rounded"><option>Todos os municípios</option></select>
+        <select class="p-2 border rounded"><option>Todas as etapas</option></select>
+    </section>
+
+    <!-- Tabela de Dados -->
+    <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-lg font-semibold mb-4">Lista de Escolas - IDEB MEC</h2>
+        <table class="w-full text-sm text-left">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="p-3">Escola</th>
+                    <th class="p-3">Município</th>
+                    <th class="p-3">Etapa</th>
+                    <th class="p-3">Nota IDEB</th>
+                </tr>
+            </thead>
+            <tbody id="ideb-table-body">
+                <!-- Os dados serão injetados via JS futuramente -->
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
