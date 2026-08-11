@@ -850,5 +850,29 @@
         "inse":  "Nível V",
         "formacao_docente":  "67.30%",
         "taxa_participacao":  "100.00%"
+    },
+	{
+        "id":  72,
+        "nome":  "Jose Ayumar Goncalves de Miranda Professor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  265.7,
+        "media_mat":  258.08,
+        "inse":  "Nível V",
+        "formacao_docente":  "46.80%",
+        "taxa_participacao":  "84.00%"
+    },
+	{
+        "id":  73,
+        "nome":  "Jose Ayumar Goncalves de Miranda Professor (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  256.36,
+        "media_mat":  253.52,
+        "inse":  "Nível V",
+        "formacao_docente":  "68.50%",
+        "taxa_participacao":  "93.42%"
     }
 ]
