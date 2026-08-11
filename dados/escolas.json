@@ -802,5 +802,29 @@
         "inse":  "Nível V",
         "formacao_docente":  "40.50%",
         "taxa_participacao":  "88.66%"
+    },
+	{
+        "id":  68,
+        "nome":  "Firmino Ladeira Professor",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  307.19,
+        "media_mat":  300.62,
+        "inse":  "Nível V",
+        "formacao_docente":  "56.20%",
+        "taxa_participacao":  "89.47%"
+    },
+	{
+        "id":  69,
+        "nome":  "Galdino Pinheiro Franco",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  285.64,
+        "media_mat":  273.82,
+        "inse":  "Nível V",
+        "formacao_docente":  "57.10%",
+        "taxa_participacao":  "88.10%"
     }
 ]
