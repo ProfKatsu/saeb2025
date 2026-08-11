@@ -1042,6 +1042,102 @@
         "inse":  "Nível V",
         "formacao_docente":  "73.50%",
         "taxa_participacao":  "90.45%"
+    },
+	{
+        "id":  88,
+        "nome":  "Paulo Ferrari Massaro Professor (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  261.07,
+        "media_mat":  271.3,
+        "inse":  "Nível V",
+        "formacao_docente":  "74.20%",
+        "taxa_participacao":  "100.00%"
+    },
+	{
+        "id":  89,
+        "nome":  "Paulo Ferrari Massaro Professor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  296.28,
+        "media_mat":  275.3,
+        "inse":  "Nível V",
+        "formacao_docente":  "68.90%",
+        "taxa_participacao":  "100.00%"
+    },
+	{
+        "id":  90,
+        "nome":  "Paulo Tapajos (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  257.71,
+        "media_mat":  272.91,
+        "inse":  "Nível V",
+        "formacao_docente":  "71.40%",
+        "taxa_participacao":  "90.00%"
+    },
+	{
+        "id":  91,
+        "nome":  "Pedro Malozze (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  252.67,
+        "media_mat":  245.98,
+        "inse":  "Nível V",
+        "formacao_docente":  "69.00%",
+        "taxa_participacao":  "90.67%"
+    },
+	{
+        "id":  92,
+        "nome":  "Sentaro Takaoka Doutor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  280.41,
+        "media_mat":  276.68,
+        "inse":  "Nível V",
+        "formacao_docente":  "63.30%",
+        "taxa_participacao":  "85.71%"
+    },
+	{
+        "id":  93,
+        "nome":  "Sueli Oliveira Martins Professora (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  290.02,
+        "media_mat":  311.94,
+        "inse":  "Nível VI",
+        "formacao_docente":  "71.40%",
+        "taxa_participacao":  "96.77%"
+    },
+	{
+        "id":  94,
+        "nome":  "Tadao Sakai Vereador (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  266.69,
+        "media_mat":  252.93,
+        "inse":  "Nível IV",
+        "formacao_docente":  "47.80%",
+        "taxa_participacao":  "92.31%"
+    },
+	{
+        "id":  95,
+        "nome":  "Washington Luiz Doutor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  287.39,
+        "media_mat":  279.1,
+        "inse":  "Nível VI",
+        "formacao_docente":  "95.30%",
+        "taxa_participacao":  "100.92%"
     }
 ]
 
