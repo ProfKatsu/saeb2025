@@ -2,14 +2,14 @@
 <section class="bg-white rounded-2xl p-4 shadow-sm border grid md:grid-cols-2 gap-3"><select id="search" class="input"><option value="">Todas as escolas</option></select><select id="stage" class="input"><option value="todos">Todas as etapas</option><option value="9_ano">9º ano</option><option value="3_em">3ª série EM</option></select></section>
 <section class="grid sm:grid-cols-3 gap-4"><article class="card"><p>Registros filtrados</p><strong id="total">—</strong></article><article class="card"><p>Média · Língua Portuguesa</p><strong id="lp">—</strong></article><article class="card"><p>Média · Matemática</p><strong id="mat">—</strong></article></section>
 <section class="grid lg:grid-cols-3 gap-5"><article class="panel lg:col-span-2"><h2>Ranking de proficiência</h2><div class="chart"><canvas id="ranking"></canvas></div></article><article class="panel"><h2>Leitura do recorte</h2><p id="insight" class="text-sm leading-6 text-slate-600"></p></article></section>
-<section class="panel overflow-x-auto"><div class="mb-3"><h2>Resultados por escola</h2></div><table class="w-full text-sm"><thead><tr><th>Escola</th><th>Etapa</th><th>Português</th><th>Matemática</th><th>INSE</th><th></th></tr></thead><tbody id="rows"></tbody></table></section></main><div id="notice-modal" class="modal hidden"><div class="panel modal-card"><h2>Simulador de IDEB</h2><p class="my-4 text-sm text-slate-600">Esta é uma simulação baseada na Nota Técnica do INEP. O resultado é estimativo e depende das taxas de aprovação informadas.</p><button id="acknowledge" class="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white">Ciente</button></div></div>
+<section class="panel overflow-x-auto"><div class="mb-3"><h2>Resultados por escola</h2></div><table class="w-full text-sm"><thead><tr><th>Escola</th><th>Etapa</th><th>Português</th><th>Matemática</th><th class="relative group cursor-help text-indigo-600 underline decoration-dotted">INSE<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-80 p-3 text-xs font-normal text-slate-100 bg-slate-900 rounded-lg shadow-xl z-50 text-left normal-case">O Indicador de Nível Socioeconômico (INSE) é uma medida desenvolvida para estimar a condição socioeconômica dos estudantes e das escolas, permitindo posicioná-los em uma escala de estratificação social e econômica[cite: 3]. Desde a edição de 2019, o indicador é construído a partir da combinação de informações sobre a escolaridade dos pais ou responsáveis e a posse de bens e recursos no domicílio[cite: 3]. Os resultados são organizados em níveis, sendo o Nível I o mais baixo e o Nível VIII, o mais alto[cite: 3].<div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div></div></th><th></th></tr></thead><tbody id="rows"></tbody></table></section></main><div id="notice-modal" class="modal hidden"><div class="panel modal-card"><h2>Simulador de IDEB</h2><p class="my-4 text-sm text-slate-600">Esta é uma simulação baseada na Nota Técnica do INEP[cite: 2]. O resultado é estimativo e depende das taxas de aprovação informadas.</p><button id="acknowledge" class="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white">Ciente</button></div></div>
 
 <div id="simulator-modal" class="modal hidden">
 <section class="panel modal-card simulator-card">
 <div class="simulator-heading">
 <div>
 <h2>Simulador de IDEB</h2>
-<p>Cálculo conforme Nota Técnica nº 1 do Inep: IDEB = N × P. 
+<p>Cálculo conforme Nota Técnica nº 1 do Inep: IDEB = N × P[cite: 2]. 
    <a href="#" id="link-formulas" class="text-indigo-600 underline font-medium hover:text-indigo-800 ml-1">Ver fórmulas</a>
 </p>
 </div>
@@ -18,18 +18,18 @@
 <div class="simulation-field school-field"><label>Escola e etapa</label><select id="school" class="input"></select><p id="scores">Selecione uma escola e etapa para visualizar as proficiências.</p></div><div class="simulation-field rates-field"><label>Taxas de aprovação (%)</label><div id="rates" class="rates-grid"></div></div><div class="simulation-result"><button id="calculate" class="rounded-lg bg-amber-400 px-5 py-2.5 font-bold text-slate-900">Calcular</button><p id="ideb"></p></div></section>
 </div>
 
-<!-- Novo Modal de Fórmulas da Nota Técnica -->
+<!-- Modal de Fórmulas da Nota Técnica -->
 <div id="modal-formulas" class="modal hidden">
 <section class="panel modal-card simulator-card" style="max-width: 650px;">
 <div class="simulator-heading">
 <div>
 <h2>Fórmulas da Nota Técnica nº 1 - Inep</h2>
-<p>Detalhamento conceitual e matemático do cálculo do IDEB.</p>
+<p>Detalhamento conceitual e matemático do cálculo do IDEB[cite: 2].</p>
 </div>
 <button id="close-formulas">Fechar</button>
 </div>
 <div class="text-sm text-slate-700 space-y-3 my-3 leading-relaxed" style="max-height: 60vh; overflow-y: auto; padding-right: 5px;">
-<p>O Ideb sintetiza informações de desempenho em exames padronizados (Saeb) com informações de rendimento escolar (taxa média de aprovação).</p>
+<p>O Ideb sintetiza informações de desempenho em exames padronizados (Saeb) com informações de rendimento escolar (taxa média de aprovação)[cite: 2].</p>
 <hr class="border-slate-200">
 <div>
 <strong>1. Fórmula Geral do IDEB:</strong>
