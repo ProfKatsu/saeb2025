@@ -922,6 +922,126 @@
         "inse":  "Nível V",
         "formacao_docente":  "80.20%",
         "taxa_participacao":  "90.32%"
+    },
+	{
+        "id":  78,
+        "nome":  "Jovita Franco Arouche Professora (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  250.51,
+        "media_mat":  247.37,
+        "inse":  "Nível IV",
+        "formacao_docente":  "57.10%",
+        "taxa_participacao":  "94.12%"
+    },
+	{
+        "id":  79,
+        "nome":  "Koheiji Adachi (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  256.55,
+        "media_mat":  254.28,
+        "inse":  "Nível V",
+        "formacao_docente":  "67.70%",
+        "taxa_participacao":  "100.00%"
+    },
+	 {
+        "id":  80,
+        "nome":  "Laurinda Cardoso Mello Freire Professora (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  262.55,
+        "media_mat":  262.51,
+        "inse":  "Nível V",
+        "formacao_docente":  "49.00%",
+        "taxa_participacao":  "83.26%"
+    },
+	{
+        "id":  81,
+        "nome":  "Lucinda Bastos Professora (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  260.05,
+        "media_mat":  255.61,
+        "inse":  "Nível V",
+        "formacao_docente":  "59.30%",
+        "taxa_participacao":  "88.73%"
+    },
+	{
+        "id":  82,
+        "nome":  "Lucinda Bastos Professora (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  253.1,
+        "media_mat":  257.52,
+        "inse":  "Nível V",
+        "formacao_docente":  "58.70%",
+        "taxa_participacao":  "94.96%"
+    },
+	{
+        "id":  83,
+        "nome":  "Maria Rodrigues Goncalves Professora (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  259.74,
+        "media_mat":  259.41,
+        "inse":  "Nível V",
+        "formacao_docente":  "86.40%",
+        "taxa_participacao":  "90.09%"
+    },
+	{
+        "id":  84,
+        "nome":  "Maria Rodrigues Goncalves Professora (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  281.5,
+        "media_mat":  268.05,
+        "inse":  "Nível V",
+        "formacao_docente":  "71.80%",
+        "taxa_participacao":  "83.33%"
+    },
+	{
+        "id":  85,
+        "nome":  "Narciso Yague Guimaraes Vereador (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  259.14,
+        "media_mat":  263.26,
+        "inse":  "Nível V",
+        "formacao_docente":  "62.50%",
+        "taxa_participacao":  "90.91%"
+    },
+	{
+        "id":  86,
+        "nome":  "Narciso Yague Guimaraes Vereador (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  247.63,
+        "media_mat":  233.18,
+        "inse":  "Nível V",
+        "formacao_docente":  "73.40%",
+        "taxa_participacao":  "81.48%"
+    },
+	{
+        "id":  87,
+        "nome":  "Paulo de Oliveira Mello Professor (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  257.03,
+        "media_mat":  248.03,
+        "inse":  "Nível V",
+        "formacao_docente":  "73.50%",
+        "taxa_participacao":  "90.45%"
     }
 ]
 
