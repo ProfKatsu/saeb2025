@@ -898,6 +898,30 @@
         "inse":  "Nível V",
         "formacao_docente":  "73.30%",
         "taxa_participacao":  "88.46%"
+    },
+	{
+        "id":  76,
+        "nome":  "Jose Sanches Josende Professor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  272.55,
+        "media_mat":  266.66,
+        "inse":  "Nível IV",
+        "formacao_docente":  "58.60%",
+        "taxa_participacao":  "94.83%"
+    },
+	{
+        "id":  77,
+        "nome":  "Josephina Najar Hernandez Professora (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  256.47,
+        "media_mat":  250.69,
+        "inse":  "Nível V",
+        "formacao_docente":  "80.20%",
+        "taxa_participacao":  "90.32%"
     }
 ]
 
