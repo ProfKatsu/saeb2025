@@ -1,7 +1,7 @@
 [
     {
         "id":  1,
-        "nome":  "Adelaide Maria de Barros Professora",
+        "nome":  "Adelaide Maria de Barros Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -13,7 +13,7 @@
     },
     {
         "id":  2,
-        "nome":  "Adhemar Bolina Professor",
+        "nome":  "Adhemar Bolina Professor (9º ano EFII)",
         "municipio":  "Biritiba Mirim - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -25,7 +25,7 @@
     },
     {
         "id":  3,
-        "nome":  "Alcides Celestino Filho Vereador",
+        "nome":  "Alcides Celestino Filho Vereador (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -37,7 +37,7 @@
     },
     {
         "id":  4,
-        "nome":  "Alzira Fernandes Scungisqui",
+        "nome":  "Alzira Fernandes Scungisqui (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -49,7 +49,7 @@
     },
     {
         "id":  5,
-        "nome":  "Americo Sugai",
+        "nome":  "Americo Sugai (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -61,7 +61,7 @@
     },
     {
         "id":  6,
-        "nome":  "Angelica de Jesus Ferreira",
+        "nome":  "Angelica de Jesus Ferreira (9º ano EFII)",
         "municipio":  "Biritiba Mirim - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -73,7 +73,7 @@
     },
     {
         "id":  7,
-        "nome":  "Antonio Marmora Filho Maestro",
+        "nome":  "Antonio Marmora Filho Maestro (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -85,7 +85,7 @@
     },
     {
         "id":  8,
-        "nome":  "Aprigio de Oliveira",
+        "nome":  "Aprigio de Oliveira (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -97,7 +97,7 @@
     },
     {
         "id":  9,
-        "nome":  "Aristoteles de Andrade Professor (9º Ano)",
+        "nome":  "Aristoteles de Andrade Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -109,7 +109,7 @@
     },
     {
         "id":  10,
-        "nome":  "Aristoteles de Andrade Professor (3º Ano EM)",
+        "nome":  "Aristoteles de Andrade Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -121,7 +121,7 @@
     },
     {
         "id":  11,
-        "nome":  "Arlindo Aquino de Oliveira Doutor (9º Ano)",
+        "nome":  "Arlindo Aquino de Oliveira Doutor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -133,7 +133,7 @@
     },
     {
         "id":  12,
-        "nome":  "Arlindo Aquino de Oliveira Doutor (3º Ano EM)",
+        "nome":  "Arlindo Aquino de Oliveira Doutor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -145,7 +145,7 @@
     },
     {
         "id":  13,
-        "nome":  "Benedito Borges Vieira Professor (9º Ano)",
+        "nome":  "Benedito Borges Vieira Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -157,7 +157,7 @@
     },
     {
         "id":  14,
-        "nome":  "Benedito Borges Vieira Professor (3º Ano EM)",
+        "nome":  "Benedito Borges Vieira Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -169,7 +169,7 @@
     },
     {
         "id":  15,
-        "nome":  "Benedito de Souza Lima (9º Ano)",
+        "nome":  "Benedito de Souza Lima (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -181,7 +181,7 @@
     },
     {
         "id":  16,
-        "nome":  "Benedito de Souza Lima (3º Ano EM)",
+        "nome":  "Benedito de Souza Lima (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -193,7 +193,7 @@
     },
     {
         "id":  17,
-        "nome":  "Bernardo Murphy Padre (9º Ano)",
+        "nome":  "Bernardo Murphy Padre (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -205,7 +205,7 @@
     },
     {
         "id":  18,
-        "nome":  "Bernardo Murphy Padre (3º Ano EM)",
+        "nome":  "Bernardo Murphy Padre (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -217,7 +217,7 @@
     },
     {
         "id":  19,
-        "nome":  "Branca Baumann do Amaral Professora",
+        "nome":  "Branca Baumann do Amaral Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -229,7 +229,7 @@
     },
     {
         "id":  20,
-        "nome":  "Camilo Faustino de Mello Professor (9º Ano)",
+        "nome":  "Camilo Faustino de Mello Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -241,7 +241,7 @@
     },
     {
         "id":  21,
-        "nome":  "Camilo Faustino de Mello Professor (3º Ano EM)",
+        "nome":  "Camilo Faustino de Mello Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -253,7 +253,7 @@
     },
     {
         "id":  22,
-        "nome":  "Claudio Abrahao Professor (9º Ano)",
+        "nome":  "Claudio Abrahao Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -265,7 +265,7 @@
     },
     {
         "id":  23,
-        "nome":  "Claudio Abrahao Professor (3º Ano EM)",
+        "nome":  "Claudio Abrahao Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -277,7 +277,7 @@
     },
     {
         "id":  24,
-        "nome":  "Dagoberto Jose Machado",
+        "nome":  "Dagoberto Jose Machado (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -289,7 +289,7 @@
     },
     {
         "id":  25,
-        "nome":  "Deodato Wertheimer Doutor (9º Ano)",
+        "nome":  "Deodato Wertheimer Doutor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -301,7 +301,7 @@
     },
     {
         "id":  26,
-        "nome":  "Deodato Wertheimer Doutor (3º Ano EM)",
+        "nome":  "Deodato Wertheimer Doutor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -313,7 +313,7 @@
     },
     {
         "id":  27,
-        "nome":  "Dora Peretti de Oliveira Professora (9º Ano)",
+        "nome":  "Dora Peretti de Oliveira Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -325,7 +325,7 @@
     },
     {
         "id":  28,
-        "nome":  "Dora Peretti de Oliveira Professora (3º Ano EM)",
+        "nome":  "Dora Peretti de Oliveira Professora (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -337,7 +337,7 @@
     },
     {
         "id":  29,
-        "nome":  "Elisiario Pinto de Morais Vereador (9º Ano)",
+        "nome":  "Elisiario Pinto de Morais Vereador (9º ano EFII)",
         "municipio":  "Salesópolis - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -349,7 +349,7 @@
     },
     {
         "id":  30,
-        "nome":  "Elisiario Pinto de Morais Vereador (3º Ano EM)",
+        "nome":  "Elisiario Pinto de Morais Vereador (3ª série EM)",
         "municipio":  "Salesópolis - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -361,7 +361,7 @@
     },
     {
         "id":  31,
-        "nome":  "Enedina Gomes de Freitas Professora (9º Ano)",
+        "nome":  "Enedina Gomes de Freitas Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -373,7 +373,7 @@
     },
     {
         "id":  32,
-        "nome":  "Enedina Gomes de Freitas Professora (3º Ano EM)",
+        "nome":  "Enedina Gomes de Freitas Professora (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -385,7 +385,7 @@
     },
     {
         "id":  33,
-        "nome":  "Euryclides de Jesus Zerbini",
+        "nome":  "Euryclides de Jesus Zerbini (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -397,7 +397,7 @@
     },
     {
         "id":  34,
-        "nome":  "Firmino Ladeira Professor",
+        "nome":  "Firmino Ladeira Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -409,7 +409,7 @@
     },
     {
         "id":  35,
-        "nome":  "Francisco de Souza Mello Professor (9º Ano)",
+        "nome":  "Francisco de Souza Mello Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -421,7 +421,7 @@
     },
     {
         "id":  36,
-        "nome":  "Francisco de Souza Mello Professor (3º Ano EM)",
+        "nome":  "Francisco de Souza Mello Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -433,7 +433,7 @@
     },
     {
         "id":  37,
-        "nome":  "Francisco Ferreira Lopes (3º Ano EM)",
+        "nome":  "Francisco Ferreira Lopes (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -445,7 +445,7 @@
     },
     {
         "id":  38,
-        "nome":  "Gabriel Pereira (9º Ano)",
+        "nome":  "Gabriel Pereira (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -457,7 +457,7 @@
     },
     {
         "id":  39,
-        "nome":  "Gabriel Pereira (3º Ano EM)",
+        "nome":  "Gabriel Pereira (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -469,7 +469,7 @@
     },
     {
         "id":  40,
-        "nome":  "Galdino Pinheiro Franco (9º Ano)",
+        "nome":  "Galdino Pinheiro Franco (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -481,7 +481,7 @@
     },
     {
         "id":  41,
-        "nome":  "Rubens Mercadante de Lima Professor Doutor (9º Ano)",
+        "nome":  "Rubens Mercadante de Lima Professor Doutor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -493,7 +493,7 @@
     },
     {
         "id":  42,
-        "nome":  "Sebastiao de Castro Professor (3º Ano EM)",
+        "nome":  "Sebastiao de Castro Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -505,7 +505,7 @@
     },
     {
         "id":  43,
-        "nome":  "Sentaro Takaoka Doutor (9º Ano)",
+        "nome":  "Sentaro Takaoka Doutor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -517,7 +517,7 @@
     },
     {
         "id":  44,
-        "nome":  "Sylvia Mafra Machado Professora (9º Ano)",
+        "nome":  "Sylvia Mafra Machado Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -529,7 +529,7 @@
     },
     {
         "id":  45,
-        "nome":  "Sylvia Mafra Machado Professora (3º Ano EM)",
+        "nome":  "Sylvia Mafra Machado Professora (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -541,7 +541,7 @@
     },
     {
         "id":  46,
-        "nome":  "Tadao Sakai Vereador (9º Ano)",
+        "nome":  "Tadao Sakai Vereador (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -553,7 +553,7 @@
     },
     {
         "id":  47,
-        "nome":  "Thimoteo Van Den Broeck Frei (9º Ano)",
+        "nome":  "Thimoteo Van Den Broeck Frei (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -565,7 +565,7 @@
     },
     {
         "id":  48,
-        "nome":  "Vania Aparecida Cassara Professora (9º Ano)",
+        "nome":  "Vania Aparecida Cassara Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -577,7 +577,7 @@
     },
     {
         "id":  49,
-        "nome":  "Washington Luiz Doutor (9º Ano)",
+        "nome":  "Washington Luiz Doutor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -589,7 +589,7 @@
     },
     {
         "id":  50,
-        "nome":  "Helena Urbano Nagib Professora (9º Ano)",
+        "nome":  "Helena Urbano Nagib Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -601,7 +601,7 @@
     },
     {
         "id":  51,
-        "nome":  "Heraclides Batalha de Camargo Desembargador (9º Ano)",
+        "nome":  "Heraclides Batalha de Camargo Desembargador (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -613,7 +613,7 @@
     },
     {
         "id":  52,
-        "nome":  "Ilson Gomes Professor",
+        "nome":  "Ilson Gomes Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -625,7 +625,7 @@
     },
     {
         "id":  53,
-        "nome":  "Iracema Brasil de Siqueira Professora",
+        "nome":  "Iracema Brasil de Siqueira Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -637,7 +637,7 @@
     },
     {
         "id":  54,
-        "nome":  "Irene Caporali de Souza Professora (3º Ano EM)",
+        "nome":  "Irene Caporali de Souza Professora (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -649,7 +649,7 @@
     },
     {
         "id":  55,
-        "nome":  "Isaac Grinberg Historiador (3º Ano EM)",
+        "nome":  "Isaac Grinberg Historiador (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -661,7 +661,7 @@
     },
     {
         "id":  56,
-        "nome":  "Joao Cardoso dos Santos Professor (9º Ano)",
+        "nome":  "Joao Cardoso dos Santos Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -673,7 +673,7 @@
     },
     {
         "id":  57,
-        "nome":  "Jose Carlos Prestes Professor (3º Ano EM)",
+        "nome":  "Jose Carlos Prestes Professor (3ª série EM)",
         "municipio":  "Biritiba Mirim - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -685,7 +685,7 @@
     },
     {
         "id":  58,
-        "nome":  "Koheiji Adachi (9º Ano)",
+        "nome":  "Koheiji Adachi (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -697,7 +697,7 @@
     },
     {
         "id":  59,
-        "nome":  "Laurinda Cardoso Mello Freire Professora (9º Ano)",
+        "nome":  "Laurinda Cardoso Mello Freire Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -709,7 +709,7 @@
     },
     {
         "id":  60,
-        "nome":  "Leonor de Oliveira Mello",
+        "nome":  "Leonor de Oliveira Mello (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -721,7 +721,7 @@
     },
     {
         "id":  61,
-        "nome":  "Maria Isabel dos Santos Mello Professora (9º Ano)",
+        "nome":  "Maria Isabel dos Santos Mello Professora (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -733,7 +733,7 @@
     },
     {
         "id":  62,
-        "nome":  "Rosa Maria de Souza Professora (9º Ano)",
+        "nome":  "Rosa Maria de Souza Professora (9º ano EFII)",
         "municipio":  "Salesópolis - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -745,7 +745,7 @@
     },
     {
         "id":  63,
-        "nome":  "Osmar Teixeira Serra Rev Professor (9º Ano)",
+        "nome":  "Osmar Teixeira Serra Rev Professor (9º ano EFII)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -757,7 +757,7 @@
     },
     {
         "id":  64,
-        "nome":  "Alzira Fernandes Scungisqui",
+        "nome":  "Alzira Fernandes Scungisqui (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -769,7 +769,7 @@
     },
     {
         "id":  65,
-        "nome":  "Olga Chakur Farah Professora",
+        "nome":  "Olga Chakur Farah Professora (3ª série EM)",
         "municipio":  "Salesópolis - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -781,7 +781,7 @@
     },
 	{
         "id":  66,
-        "nome":  "Olga Chakur Farah Professora",
+        "nome":  "Olga Chakur Farah Professora (9º ano EFII)",
         "municipio":  "Salesópolis - SP",
         "rede":  "Estadual",
         "etapa":  "9_ano",
@@ -793,7 +793,7 @@
     },
 	{
         "id":  67,
-        "nome":  "Americo Sugai",
+        "nome":  "Americo Sugai (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -805,7 +805,7 @@
     },
 	{
         "id":  68,
-        "nome":  "Firmino Ladeira Professor",
+        "nome":  "Firmino Ladeira Professor (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
@@ -817,7 +817,7 @@
     },
 	{
         "id":  69,
-        "nome":  "Galdino Pinheiro Franco",
+        "nome":  "Galdino Pinheiro Franco (3ª série EM)",
         "municipio":  "Mogi das Cruzes - SP",
         "rede":  "Estadual",
         "etapa":  "3_em",
