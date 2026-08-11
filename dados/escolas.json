@@ -874,5 +874,30 @@
         "inse":  "Nível V",
         "formacao_docente":  "68.50%",
         "taxa_participacao":  "93.42%"
+    },
+	{
+        "id":  74,
+        "nome":  "Jose Ribeiro Guimaraes (9º ano EFII)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "9_ano",
+        "media_lp":  278.65,
+        "media_mat":  272.87,
+        "inse":  "Nível V",
+        "formacao_docente":  "76.70%",
+        "taxa_participacao":  "105.26%"
+    },
+	{
+        "id":  75,
+        "nome":  "Jose Ribeiro Guimaraes (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  298.66,
+        "media_mat":  283.24,
+        "inse":  "Nível V",
+        "formacao_docente":  "73.30%",
+        "taxa_participacao":  "88.46%"
     }
 ]
+
