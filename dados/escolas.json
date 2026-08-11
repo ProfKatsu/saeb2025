@@ -838,5 +838,17 @@
         "inse":  "Nível V",
         "formacao_docente":  "41.20%",
         "taxa_participacao":  "95.24%"
+    },
+	 {
+        "id":  71,
+        "nome":  "Joao Cardoso dos Santos Professor (3ª série EM)",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  288.28,
+        "media_mat":  283.62,
+        "inse":  "Nível V",
+        "formacao_docente":  "67.30%",
+        "taxa_participacao":  "100.00%"
     }
 ]
