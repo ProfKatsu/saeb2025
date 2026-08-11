@@ -790,5 +790,17 @@
         "inse":  "Nível V",
         "formacao_docente":  "58.70%",
         "taxa_participacao":  "97.30%"
+    },
+	{
+        "id":  67,
+        "nome":  "Americo Sugai",
+        "municipio":  "Mogi das Cruzes - SP",
+        "rede":  "Estadual",
+        "etapa":  "3_em",
+        "media_lp":  275.40,
+        "media_mat":  264.36,
+        "inse":  "Nível V",
+        "formacao_docente":  "40.50%",
+        "taxa_participacao":  "88.66%"
     }
 ]
