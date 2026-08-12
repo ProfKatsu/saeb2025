@@ -5,39 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IDEB Consolidado | SAEB 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-slate-50 p-6">
+<body class="bg-slate-50 text-slate-800">
+    <header class="bg-indigo-950 text-white">
+        <div class="max-w-7xl mx-auto px-5 py-6 flex flex-col md:flex-row justify-between gap-4 items-center">
+            <div>
+                <p class="text-indigo-200 text-xs font-semibold uppercase tracking-widest">Plataforma de gestão educacional</p>
+                <h1 class="text-xl font-bold">SAEB 2025 · URE Mogi das Cruzes</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <nav class="flex bg-indigo-900 p-1 rounded-lg border border-indigo-800">
+                    <a href="index.html" class="px-4 py-2 text-sm font-semibold rounded-md text-indigo-200 hover:text-white transition">Proficiência</a>
+                    <a href="ideb.html" class="px-4 py-2 text-sm font-bold rounded-md bg-amber-400 text-slate-900 transition">IDEB Consolidado</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <!-- Navegação entre abas -->
-    <nav class="mb-8 border-b pb-4">
-        <a href="index.html" class="text-slate-500 hover:text-indigo-600 mr-6">Proficiências</a>
-        <a href="ideb.html" class="font-bold text-indigo-700 border-b-2 border-indigo-700 pb-2">IDEB Consolidado</a>
-    </nav>
+    <main class="max-w-7xl mx-auto p-5 space-y-5">
+        <!-- Filtros de Município e Escola -->
+        <section class="bg-white rounded-2xl p-4 shadow-sm border grid md:grid-cols-2 gap-3">
+            <select id="filter-municipio" class="input p-2.5 border rounded-lg">
+                <option value="">Todos os municípios</option>
+            </select>
+            <select id="filter-escola" class="input p-2.5 border rounded-lg">
+                <option value="">Todas as escolas</option>
+            </select>
+        </section>
 
-    <!-- Filtros -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <select class="p-2 border rounded"><option>Todas as escolas</option></select>
-        <select class="p-2 border rounded"><option>Todos os municípios</option></select>
-        <select class="p-2 border rounded"><option>Todas as etapas</option></select>
-    </section>
+        <!-- Tabela Consolidada -->
+        <section class="panel overflow-x-auto bg-white rounded-2xl p-5 shadow-sm border">
+            <div class="mb-4">
+                <h2 class="text-lg font-bold">Dados Históricos e IDEB 2025 Consolidado</h2>
+            </div>
+            <table class="w-full text-sm text-left">
+                <thead>
+                    <tr class="border-b text-slate-600">
+                        <th class="py-3 px-4">Município</th>
+                        <th class="py-3 px-4">Escola</th>
+                        <th class="py-3 px-4">Meta 2025</th>
+                        <th class="py-3 px-4">Ideb 2025 (NxP)</th>
+                        <th class="py-3 px-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="ideb-tbody" class="divide-y divide-slate-100">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
 
-    <!-- Tabela de Dados -->
-    <div class="bg-white p-6 rounded shadow">
-        <h2 class="text-lg font-semibold mb-4">Lista de Escolas - IDEB MEC</h2>
-        <table class="w-full text-sm text-left">
-            <thead class="bg-slate-100">
-                <tr>
-                    <th class="p-3">Escola</th>
-                    <th class="p-3">Município</th>
-                    <th class="p-3">Etapa</th>
-                    <th class="p-3">Nota IDEB</th>
-                </tr>
-            </thead>
-            <tbody id="ideb-table-body">
-                <!-- Os dados serão injetados via JS futuramente -->
-            </tbody>
-        </table>
-    </div>
+    <footer class="p-6 text-center text-xs text-slate-500">Resultados SAEB 2025 · URE Mogi das Cruzes</footer>
 
+    <script>
+        let idebData = [];
+
+        async function loadIdebData() {
+            try {
+                const response = await fetch('./dados/ideb_consolidado.json');
+                idebData = await response.json();
+                populateFilters();
+                renderTable(idebData);
+            } catch (error) {
+                console.error("Erro ao carregar dados do IDEB:", error);
+            }
+        }
+
+        function populateFilters() {
+            const municipios = [...new Set(idebData.map(x => x.municipio))].sort();
+            const municipioSelect = document.getElementById('filter-municipio');
+            municipioSelect.innerHTML = '<option value="">Todos os municípios</option>' + municipios.map(m => `<option value="${m}">${m}</option>`).join('');
+
+            updateSchoolFilter();
+        }
+
+        function updateSchoolFilter() {
+            const selectedMunicipio = document.getElementById('filter-municipio').value;
+            const schoolsToShow = selectedMunicipio ? idebData.filter(x => x.municipio === selectedMunicipio) : idebData;
+            const escolas = [...new Set(schoolsToShow.map(x => x.escola))].sort();
+            
+            const escolaSelect = document.getElementById('filter-escola');
+            escolaSelect.innerHTML = '<option value="">Todas as escolas</option>' + escolas.map(e => `<option value="${e}">${e}</option>`).join('');
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('ideb-tbody');
+            tbody.innerHTML = data.map(row => {
+                let statusText = "—";
+                let statusClass = "text-slate-500";
+
+                const idebVal = parseFloat(row.ideb);
+                const metaVal = parseFloat(row.meta);
+
+                if (!isNaN(idebVal) && !isNaN(metaVal)) {
+                    if (idebVal > metaVal) {
+                        statusText = "Superou";
+                        statusClass = "text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-full inline-block";
+                    } else if (Math.abs(idebVal - metaVal) < 0.001) {
+                        statusText = "atingiu";
+                        statusClass = "text-blue-600 font-bold bg-blue-50 px-2.5 py-1 rounded-full inline-block";
+                    } else {
+                        statusText = "não atingiu";
+                        statusClass = "text-rose-600 font-bold bg-rose-50 px-2.5 py-1 rounded-full inline-block";
+                    }
+                }
+
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-3 px-4 font-medium">${row.municipio}</td>
+                        <td class="py-3 px-4">${row.escola}</td>
+                        <td class="py-3 px-4">${isNaN(metaVal) ? row.meta : metaVal.toFixed(1)}</td>
+                        <td class="py-3 px-4">${isNaN(idebVal) ? row.ideb : idebVal.toFixed(1)}</td>
+                        <td class="py-3 px-4"><span class="${statusClass}">${statusText}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('filter-municipio').addEventListener('change', (e) => {
+            updateSchoolFilter();
+            filterData();
+        });
+
+        document.getElementById('filter-escola').addEventListener('change', () => {
+            filterData();
+        });
+
+        function filterData() {
+            const selectedMunicipio = document.getElementById('filter-municipio').value;
+            const selectedEscola = document.getElementById('filter-escola').value;
+
+            const filtered = idebData.filter(x => {
+                const matchMun = !selectedMunicipio || x.municipio === selectedMunicipio;
+                const matchEscola = !selectedEscola || x.escola === selectedEscola;
+                return matchMun && matchEscola;
+            });
+
+            renderTable(filtered);
+        }
+
+        loadIdebData();
+    </script>
 </body>
 </html>
