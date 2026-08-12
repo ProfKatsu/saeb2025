@@ -76,7 +76,7 @@
         </section>
     </main>
 
-    <!-- Modal de Aviso Inicial (Sem a classe hidden para aparecer na carga) -->
+    <!-- Modal de Aviso Inicial (Com ID exclusivo para não conflitar com o app.js) -->
     <div id="notice-modal" class="modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl p-6 max-w-xl w-full shadow-2xl border space-y-4">
             <div class="border-b pb-3">
@@ -98,12 +98,12 @@
                 </p>
             </div>
             <div class="border-t pt-3 flex justify-end">
-                <button id="acknowledge" class="rounded-xl bg-indigo-600 hover:bg-indigo-700 transition px-6 py-2.5 font-bold text-white text-sm shadow-md">Ciente</button>
+                <button id="btn-ciente-aviso" class="rounded-xl bg-indigo-600 hover:bg-indigo-700 transition px-6 py-2.5 font-bold text-white text-sm shadow-md">Ciente</button>
             </div>
         </div>
     </div>
 
-    <!-- Modais originais exigidos pelo app.js -->
+    <!-- Modais originais da plataforma -->
     <div id="simulator-modal" class="modal hidden">
         <section class="panel modal-card simulator-card">
             <div class="simulator-heading">
@@ -164,6 +164,13 @@
         <p>Desenvolvido por Katsusuke Yamazaki Filho</p>
         <p>Todos os direitos reservados · Copyright © 2026</p>
     </footer>
+
+    <script>
+        // Fecha o modal de aviso e garante que o app.js carregue a tabela normalmente
+        document.getElementById('btn-ciente-aviso').addEventListener('click', () => {
+            document.getElementById('notice-modal').classList.add('hidden');
+        });
+    </script>
 
     <script type="module" src="js/app.js"></script>
 </body>
