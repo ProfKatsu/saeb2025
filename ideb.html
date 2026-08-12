@@ -20,6 +20,9 @@
                     <a href="index.html" class="px-4 py-2 text-sm font-semibold rounded-md text-indigo-200 hover:text-white transition">Proficiência</a>
                     <a href="ideb.html" class="px-4 py-2 text-sm font-bold rounded-md bg-amber-400 text-slate-900 transition">IDEB Consolidado</a>
                 </nav>
+                <div class="flex gap-2">
+                    <button id="print" class="rounded-lg bg-white/10 px-4 py-2 text-sm hover:bg-white/20 transition">Imprimir painel</button>
+                </div>
             </div>
         </div>
     </header>
@@ -216,6 +219,9 @@
             renderTable(filtered);
             updateChart(filtered);
         }
+
+        // Evento do botão de impressão
+        document.getElementById('print').onclick = () => print();
 
         loadIdebData();
     </script>
