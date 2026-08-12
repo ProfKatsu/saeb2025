@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SAEB & IDEB · Katsusuke</title>
+    <title>IDEB Consolidado | SAEB 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -24,15 +25,33 @@
     </header>
 
     <main class="max-w-7xl mx-auto p-5 space-y-5">
-        <!-- Filtros de Município e Escola -->
-        <section class="bg-white rounded-2xl p-4 shadow-sm border grid md:grid-cols-2 gap-3">
-            <select id="filter-municipio" class="input p-2.5 border rounded-lg">
-                <option value="">Todos os municípios</option>
-            </select>
-            <select id="filter-escola" class="input p-2.5 border rounded-lg">
-                <option value="">Todas as escolas</option>
-            </select>
-        </section>
+        <!-- Filtros e Gráfico de Status -->
+        <div class="grid lg:grid-cols-3 gap-5">
+            <!-- Filtros -->
+            <section class="bg-white rounded-2xl p-5 shadow-sm border flex flex-col justify-center space-y-4 lg:col-span-1">
+                <h2 class="text-base font-bold text-slate-700">Filtros da Consulta</h2>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1">Município</label>
+                    <select id="filter-municipio" class="input p-2.5 border rounded-lg w-full text-sm">
+                        <option value="">Todos os municípios</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1">Escola</label>
+                    <select id="filter-escola" class="input p-2.5 border rounded-lg w-full text-sm">
+                        <option value="">Todas as escolas</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Gráfico de Status -->
+            <section class="bg-white rounded-2xl p-5 shadow-sm border lg:col-span-2 flex flex-col items-center justify-center">
+                <h2 class="text-base font-bold text-slate-700 mb-2 self-start">Resumo de Atingimento das Metas</h2>
+                <div style="width: 100%; max-height: 200px; display: flex; justify-content: center;">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </section>
+        </div>
 
         <!-- Tabela Consolidada -->
         <section class="panel overflow-x-auto bg-white rounded-2xl p-5 shadow-sm border">
@@ -55,21 +74,22 @@
             </table>
         </section>
     </main>
+
     <footer class="p-6 text-center text-xs text-slate-500 space-y-1">
-    <p>Desenvolvido por Katsusuke Yamazaki Filho</p>
-    <p>Todos os direitos reservados · Copyright © 2026</p>
+        <p>Desenvolvido por Katsusuke Yamazaki Filho</p>
+        <p>Todos os direitos reservados · Copyright © 2026</p>
     </footer>
 
-   
     <script>
         let idebData = [];
+        let statusChart = null;
 
         async function loadIdebData() {
             try {
                 const response = await fetch('./dados/ideb_consolidado.json');
                 idebData = await response.json();
                 populateFilters();
-                renderTable(idebData);
+                filterData();
             } catch (error) {
                 console.error("Erro ao carregar dados do IDEB:", error);
             }
@@ -92,27 +112,29 @@
             escolaSelect.innerHTML = '<option value="">Todas as escolas</option>' + escolas.map(e => `<option value="${e}">${e}</option>`).join('');
         }
 
+        function getStatusInfo(ideb, meta) {
+            const idebVal = parseFloat(ideb);
+            const metaVal = parseFloat(meta);
+
+            if (isNaN(idebVal) || isNaN(metaVal)) {
+                return { text: "—", class: "text-slate-500", group: "Indefinido" };
+            }
+
+            if (idebVal > metaVal) {
+                return { text: "Superou", class: "text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-full inline-block", group: "Superou" };
+            } else if (Math.abs(idebVal - metaVal) < 0.001) {
+                return { text: "atingiu", class: "text-blue-600 font-bold bg-blue-50 px-2.5 py-1 rounded-full inline-block", group: "Atingiu" };
+            } else {
+                return { text: "não atingiu", class: "text-rose-600 font-bold bg-rose-50 px-2.5 py-1 rounded-full inline-block", group: "Não Atingiu" };
+            }
+        }
+
         function renderTable(data) {
             const tbody = document.getElementById('ideb-tbody');
             tbody.innerHTML = data.map(row => {
-                let statusText = "—";
-                let statusClass = "text-slate-500";
-
+                const status = getStatusInfo(row.ideb, row.meta);
                 const idebVal = parseFloat(row.ideb);
                 const metaVal = parseFloat(row.meta);
-
-                if (!isNaN(idebVal) && !isNaN(metaVal)) {
-                    if (idebVal > metaVal) {
-                        statusText = "Superou";
-                        statusClass = "text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-full inline-block";
-                    } else if (Math.abs(idebVal - metaVal) < 0.001) {
-                        statusText = "atingiu";
-                        statusClass = "text-blue-600 font-bold bg-blue-50 px-2.5 py-1 rounded-full inline-block";
-                    } else {
-                        statusText = "não atingiu";
-                        statusClass = "text-rose-600 font-bold bg-rose-50 px-2.5 py-1 rounded-full inline-block";
-                    }
-                }
 
                 return `
                     <tr class="hover:bg-slate-50">
@@ -120,13 +142,59 @@
                         <td class="py-3 px-4">${row.escola}</td>
                         <td class="py-3 px-4">${isNaN(metaVal) ? row.meta : metaVal.toFixed(1)}</td>
                         <td class="py-3 px-4">${isNaN(idebVal) ? row.ideb : idebVal.toFixed(1)}</td>
-                        <td class="py-3 px-4"><span class="${statusClass}">${statusText}</span></td>
+                        <td class="py-3 px-4"><span class="${status.class}">${status.text}</span></td>
                     </tr>
                 `;
             }).join('');
         }
 
-        document.getElementById('filter-municipio').addEventListener('change', (e) => {
+        function updateChart(data) {
+            let countSuperou = 0;
+            let countAtingiu = 0;
+            let countNaoAtingiu = 0;
+
+            data.forEach(row => {
+                const status = getStatusInfo(row.ideb, row.meta);
+                if (status.group === "Superou") countSuperou++;
+                if (status.group === "Atingiu") countAtingiu++;
+                if (status.group === "Não Atingiu") countNaoAtingiu++;
+            });
+
+            const ctx = document.getElementById('statusChart').getContext('2d');
+
+            if (statusChart) {
+                statusChart.destroy();
+            }
+
+            statusChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Superou', 'Atingiu', 'Não Atingiu'],
+                    datasets: [{
+                        label: 'Quantidade de Escolas',
+                        data: [countSuperou, countAtingiu, countNaoAtingiu],
+                        backgroundColor: ['#059669', '#2563eb', '#e11d48'],
+                        borderRadius: 8,
+                        maxBarThickness: 60
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 5 }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById('filter-municipio').addEventListener('change', () => {
             updateSchoolFilter();
             filterData();
         });
@@ -139,13 +207,14 @@
             const selectedMunicipio = document.getElementById('filter-municipio').value;
             const selectedEscola = document.getElementById('filter-escola').value;
 
-            const filtered = idebData.filter(x => {
+            const filtered = idebData.key ? idebData : idebData.filter(x => {
                 const matchMun = !selectedMunicipio || x.municipio === selectedMunicipio;
                 const matchEscola = !selectedEscola || x.escola === selectedEscola;
                 return matchMun && matchEscola;
             });
 
             renderTable(filtered);
+            updateChart(filtered);
         }
 
         loadIdebData();
